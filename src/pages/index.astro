@@ -1,11 +1,31 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import About from '../components/About.astro';
+import Gallery from '../components/Gallery.astro';
+import BudgetCalculator from '../components/BudgetCalculator.astro';
+import Checklist from '../components/Checklist.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { translations } from '../i18n/translations';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const t = translations.es;
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Kimaura Wedding Planner - Bodas de Ensueño">
+	<Navigation t={t} />
+	<main>
+		<Hero t={t} />
+		<Services t={t} />
+		<About t={t} />
+		<Gallery t={t} />
+		<BudgetCalculator t={t} />
+		<Checklist t={t} />
+		<Testimonials t={t} />
+		<Contact t={t} />
+	</main>
+	<Footer t={t} />
 </Layout>

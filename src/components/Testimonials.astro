@@ -1,0 +1,153 @@
+---
+import type { translations } from '../i18n/translations';
+
+interface Props {
+  t: typeof translations.es | typeof translations.en;
+}
+
+const { t } = Astro.props;
+
+const testimonials = [
+  {
+    name: t.testimonials.testimonial1.name,
+    text: t.testimonials.testimonial1.text,
+    date: t.testimonials.testimonial1.date
+  },
+  {
+    name: t.testimonials.testimonial2.name,
+    text: t.testimonials.testimonial2.text,
+    date: t.testimonials.testimonial2.date
+  },
+  {
+    name: t.testimonials.testimonial3.name,
+    text: t.testimonials.testimonial3.text,
+    date: t.testimonials.testimonial3.date
+  }
+];
+---
+
+<section id="testimonials" class="testimonials">
+  <div class="container">
+    <h2 class="section-title">{t.testimonials.title}</h2>
+    <p class="section-subtitle">{t.testimonials.subtitle}</p>
+    
+    <div class="testimonials-grid">
+      {testimonials.map((testimonial) => (
+        <div class="testimonial-card">
+          <div class="quote-icon">❝</div>
+          <p class="testimonial-text">{testimonial.text}</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">💑</div>
+            <div class="author-info">
+              <h4 class="author-name">{testimonial.name}</h4>
+              <p class="author-date">{testimonial.date}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #fff5f8 0%, #fffbfc 50%, #ffe8f0 100%);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 4rem;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .testimonial-card {
+    background: linear-gradient(145deg, #ffffff 0%, #fffbfc 100%);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(212, 120, 155, 0.12);
+    transition: all 0.4s ease;
+    position: relative;
+    border: 2px solid rgba(212, 120, 155, 0.1);
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(212, 120, 155, 0.2);
+    border-color: var(--primary-light);
+  }
+
+  .quote-icon {
+    font-size: 4rem;
+    color: var(--primary-light);
+    line-height: 1;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+  }
+
+  .testimonial-text {
+    color: var(--text-primary);
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid #f0f0f0;
+  }
+
+  .author-avatar {
+    font-size: 2.5rem;
+  }
+
+  .author-info {
+    flex: 1;
+  }
+
+  .author-name {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .author-date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .testimonials {
+      padding: 4rem 1.5rem;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

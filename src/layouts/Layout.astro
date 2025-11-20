@@ -1,22 +1,114 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Kimaura Wedding Planner - Hacemos realidad la boda de tus sueños" } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
+<style is:global>
+	:root {
+		--primary: #d4789b;
+		--primary-dark: #b85d7f;
+		--primary-light: #f0a3c0;
+		--secondary: #e8b4c8;
+		--accent: #f7d5e3;
+		--text-primary: #4a2c3b;
+		--text-secondary: #7a5967;
+		--text-muted: #a88897;
+		--bg-light: #fff5f8;
+		--bg-lighter: #fffbfc;
+		--white: #ffffff;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html {
+		font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		scroll-behavior: smooth;
+		background: var(--bg-lighter);
+	}
+
 	body {
+		color: var(--text-primary);
+		line-height: 1.6;
+		overflow-x: hidden;
 		margin: 0;
 		width: 100%;
 		height: 100%;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		font-family: 'Playfair Display', serif;
+		line-height: 1.3;
+		color: var(--primary-dark);
+	}
+
+	.btn {
+		display: inline-block;
+		padding: 1rem 2rem;
+		border-radius: 50px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.3s ease;
+		cursor: pointer;
+		border: none;
+		font-size: 1rem;
+		font-family: inherit;
+	}
+
+  .btn-primary {
+		background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+		color: white;
+		box-shadow: 0 4px 25px rgba(212, 120, 155, 0.35);
+	}
+
+	.btn-primary:hover {
+		background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+		transform: translateY(-3px);
+		box-shadow: 0 8px 35px rgba(212, 120, 155, 0.45);
+	}	.btn-secondary {
+		background: transparent;
+		color: var(--primary);
+		border: 2px solid var(--primary);
+	}
+
+	.btn-secondary:hover {
+		background: var(--primary);
+		color: white;
+		transform: translateY(-2px);
+	}
+
+	code {
+		font-family: Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono',
+			'Bitstream Vera Sans Mono', 'Courier New', monospace;
+	}
+
+	/* Smooth scroll offset for fixed navbar */
+	section {
+		scroll-margin-top: 80px;
 	}
 </style>

@@ -1,0 +1,138 @@
+---
+import type { translations } from '../i18n/translations';
+
+interface Props {
+  t: typeof translations.es | typeof translations.en;
+}
+
+const { t } = Astro.props;
+
+const services = [
+  {
+    icon: '✨',
+    title: t.services.fullPlanning.title,
+    description: t.services.fullPlanning.description
+  },
+  {
+    icon: '📋',
+    title: t.services.partialPlanning.title,
+    description: t.services.partialPlanning.description
+  },
+  {
+    icon: '🎯',
+    title: t.services.dayOf.title,
+    description: t.services.dayOf.description
+  },
+  {
+    icon: '🎨',
+    title: t.services.design.title,
+    description: t.services.design.description
+  },
+  {
+    icon: '🤝',
+    title: t.services.vendors.title,
+    description: t.services.vendors.description
+  },
+  {
+    icon: '✈️',
+    title: t.services.destination.title,
+    description: t.services.destination.description
+  }
+];
+---
+
+<section id="services" class="services">
+  <div class="container">
+    <h2 class="section-title">{t.services.title}</h2>
+    <p class="section-subtitle">{t.services.subtitle}</p>
+    
+    <div class="services-grid">
+      {services.map(service => (
+        <div class="service-card">
+          <div class="service-icon">{service.icon}</div>
+          <h3 class="service-title">{service.title}</h3>
+          <p class="service-description">{service.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: 6rem 2rem;
+    background: linear-gradient(180deg, var(--white) 0%, var(--bg-light) 100%);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    line-height: 1.6;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .service-card {
+    padding: 2.5rem;
+    background: linear-gradient(145deg, #ffffff 0%, #fff5f8 100%);
+    border-radius: 20px;
+    transition: all 0.4s ease;
+    border: 2px solid rgba(212, 120, 155, 0.1);
+    box-shadow: 0 5px 20px rgba(212, 120, 155, 0.08);
+  }
+
+  .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 45px rgba(212, 120, 155, 0.2);
+    border-color: var(--primary-light);
+    background: linear-gradient(145deg, #fffbfc 0%, #ffe8f0 100%);
+  }
+
+  .service-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .service-description {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .services {
+      padding: 4rem 1.5rem;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

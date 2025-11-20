@@ -1,0 +1,213 @@
+---
+import type { translations } from '../i18n/translations';
+
+interface Props {
+  t: typeof translations.es | typeof translations.en;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="budget" class="budget">
+  <div class="container">
+    <h2 class="section-title">{t.budget.title}</h2>
+    <p class="section-subtitle">{t.budget.subtitle}</p>
+    
+    <div class="budget-calculator">
+      <div class="calculator-form">
+        <div class="form-group">
+          <label for="guests">{t.budget.guests}</label>
+          <input type="number" id="guests" min="1" value="100" />
+        </div>
+
+        <div class="form-group">
+          <label for="venue">{t.budget.venue}</label>
+          <select id="venue">
+            <option value="5000">{t.budget.venueOptions.garden}</option>
+            <option value="8000">{t.budget.venueOptions.salon}</option>
+            <option value="10000">{t.budget.venueOptions.beach}</option>
+            <option value="15000">{t.budget.venueOptions.destination}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="catering">{t.budget.catering}</label>
+          <input type="number" id="catering" min="1" value="50" />
+        </div>
+
+        <div class="form-group">
+          <label for="decoration">{t.budget.decoration}</label>
+          <select id="decoration">
+            <option value="2000">{t.budget.decorationOptions.basic}</option>
+            <option value="5000">{t.budget.decorationOptions.standard}</option>
+            <option value="10000">{t.budget.decorationOptions.premium}</option>
+            <option value="20000">{t.budget.decorationOptions.luxury}</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary calculate-btn">{t.budget.calculate}</button>
+      </div>
+
+      <div class="budget-result">
+        <div class="result-card">
+          <h3>{t.budget.estimatedTotal}</h3>
+          <div class="total-amount">$<span id="totalAmount">20,000</span></div>
+          <p class="disclaimer">{t.budget.disclaimer}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .budget {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #fffbfc 0%, #fff5f8 100%);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 4rem;
+  }
+
+  .budget-calculator {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .calculator-form {
+    background: linear-gradient(145deg, #ffffff 0%, #fffbfc 100%);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(212, 120, 155, 0.12);
+    border: 2px solid rgba(212, 120, 155, 0.1);
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.85rem;
+    border: 2px solid rgba(212, 120, 155, 0.2);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #fffbfc;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(212, 120, 155, 0.1);
+    background: white;
+  }
+
+  .calculate-btn {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .budget-result {
+    position: sticky;
+    top: 100px;
+  }
+
+  .result-card {
+    background: linear-gradient(145deg, #ffffff 0%, #fff5f8 100%);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 12px 45px rgba(212, 120, 155, 0.15);
+    text-align: center;
+    border: 2px solid rgba(212, 120, 155, 0.15);
+  }
+
+  .result-card h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .total-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+  }
+
+  .disclaimer {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 968px) {
+    .budget {
+      padding: 4rem 1.5rem;
+    }
+
+    .budget-calculator {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .budget-result {
+      position: static;
+    }
+  }
+</style>
+
+<script>
+  function calculateBudget() {
+    const guests = parseInt((document.getElementById('guests') as HTMLInputElement)?.value || '0');
+    const venue = parseInt((document.getElementById('venue') as HTMLSelectElement)?.value || '0');
+    const catering = parseInt((document.getElementById('catering') as HTMLInputElement)?.value || '0');
+    const decoration = parseInt((document.getElementById('decoration') as HTMLSelectElement)?.value || '0');
+
+    const total = venue + (catering * guests) + decoration;
+    const totalElement = document.getElementById('totalAmount');
+    
+    if (totalElement) {
+      totalElement.textContent = total.toLocaleString();
+    }
+  }
+
+  document.querySelector('.calculate-btn')?.addEventListener('click', calculateBudget);
+  
+  // Calcular automáticamente al cambiar valores
+  ['guests', 'venue', 'catering', 'decoration'].forEach(id => {
+    document.getElementById(id)?.addEventListener('change', calculateBudget);
+  });
+
+  // Calcular inicial
+  calculateBudget();
+</script>

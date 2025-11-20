@@ -1,0 +1,147 @@
+---
+import type { translations } from '../i18n/translations';
+
+interface Props {
+  t: typeof translations.es | typeof translations.en;
+}
+
+const { t } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3 class="footer-logo">Kimaura</h3>
+        <p class="footer-tagline">Wedding Planner</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#home">{t.nav.home}</a>
+        <a href="#services">{t.nav.services}</a>
+        <a href="#about">{t.nav.about}</a>
+        <a href="#contact">{t.nav.contact}</a>
+      </div>
+
+      <div class="footer-social">
+        <p class="social-title">{t.footer.follow}</p>
+        <div class="social-icons">
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="Facebook">👍</a>
+          <a href="#" aria-label="Pinterest">📌</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {currentYear} Kimaura Wedding Planner. {t.footer.rights}.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: linear-gradient(135deg, #4a2c3b 0%, #5c3b4d 100%);
+    color: white;
+    padding: 3rem 2rem 1.5rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-brand {
+    text-align: left;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-tagline {
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--primary-light);
+  }
+
+  .footer-social {
+    text-align: center;
+  }
+
+  .social-title {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .social-icons a {
+    font-size: 1.8rem;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .social-icons a:hover {
+    transform: scale(1.2);
+  }
+
+  .footer-bottom {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      padding: 2rem 1.5rem 1rem;
+    }
+
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .footer-brand {
+      text-align: center;
+    }
+
+    .footer-links {
+      align-items: center;
+    }
+  }
+</style>

@@ -1,0 +1,147 @@
+---
+import type { translations } from '../i18n/translations';
+
+interface Props {
+  t: typeof translations.es | typeof translations.en;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="about" class="about">
+  <div class="container">
+    <div class="about-content">
+      <div class="about-text">
+        <h2 class="section-title">{t.about.title}</h2>
+        <p class="section-subtitle">{t.about.subtitle}</p>
+        <p class="about-description">{t.about.description}</p>
+      </div>
+      
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">{t.about.experience}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">200+</div>
+          <div class="stat-label">{t.about.weddings}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">{t.about.satisfaction}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #fff5f8 0%, #fffbfc 50%, #ffe8f0 100%);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-text {
+    animation: fadeInLeft 1s ease;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .about-description {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.1rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    animation: fadeInRight 1s ease;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 2.5rem;
+    background: linear-gradient(145deg, #ffffff 0%, #fffbfc 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(212, 120, 155, 0.12);
+    transition: all 0.4s ease;
+    border: 2px solid rgba(212, 120, 155, 0.1);
+  }
+
+  .stat-card:hover {
+    transform: scale(1.05);
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 968px) {
+    .about {
+      padding: 4rem 1.5rem;
+    }
+
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+</style>

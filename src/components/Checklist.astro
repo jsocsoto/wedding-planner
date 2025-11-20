@@ -1,0 +1,199 @@
+---
+import type { translations } from '../i18n/translations';
+
+interface Props {
+  t: typeof translations.es | typeof translations.en;
+}
+
+const { t } = Astro.props;
+
+const checklistItems = [
+  {
+    period: t.checklist.months12,
+    tasks: [
+      t.checklist.tasks.budget,
+      t.checklist.tasks.date,
+      t.checklist.tasks.venue
+    ]
+  },
+  {
+    period: t.checklist.months9,
+    tasks: [
+      t.checklist.tasks.planner,
+      t.checklist.tasks.guestList,
+      t.checklist.tasks.vendors
+    ]
+  },
+  {
+    period: t.checklist.months6,
+    tasks: [
+      t.checklist.tasks.dress,
+      t.checklist.tasks.invitations
+    ]
+  },
+  {
+    period: t.checklist.months3,
+    tasks: [
+      t.checklist.tasks.menu,
+      t.checklist.tasks.music
+    ]
+  },
+  {
+    period: t.checklist.month1,
+    tasks: [
+      t.checklist.tasks.rehearsal,
+      t.checklist.tasks.finalCheck
+    ]
+  }
+];
+---
+
+<section id="checklist" class="checklist">
+  <div class="container">
+    <h2 class="section-title">{t.checklist.title}</h2>
+    <p class="section-subtitle">{t.checklist.subtitle}</p>
+    
+    <div class="timeline">
+      {checklistItems.map((item, index) => (
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <h3 class="timeline-period">{item.period}</h3>
+            <ul class="task-list">
+              {item.tasks.map(task => (
+                <li class="task-item">
+                  <input type="checkbox" id={`task-${index}-${task}`} />
+                  <label for={`task-${index}-${task}`}>{task}</label>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .checklist {
+    padding: 6rem 2rem;
+    background: linear-gradient(180deg, var(--white) 0%, var(--bg-light) 100%);
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 4rem;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 50%, var(--secondary) 100%);
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -3.5rem;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 4px solid var(--primary);
+    border-radius: 50%;
+    z-index: 2;
+  }
+
+  .timeline-content {
+    background: linear-gradient(145deg, #ffffff 0%, #fff5f8 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(212, 120, 155, 0.12);
+    border: 2px solid rgba(212, 120, 155, 0.1);
+  }
+
+  .timeline-period {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+
+  .task-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .task-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .task-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 1rem;
+    cursor: pointer;
+    accent-color: var(--primary);
+  }
+
+  .task-item label {
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+
+  .task-item input[type="checkbox"]:checked + label {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    .checklist {
+      padding: 4rem 1.5rem;
+    }
+
+    .timeline {
+      padding-left: 2rem;
+    }
+
+    .timeline-marker {
+      left: -2.5rem;
+    }
+
+    .timeline-content {
+      padding: 1.5rem;
+    }
+  }
+</style>
