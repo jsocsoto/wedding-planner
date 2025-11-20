@@ -172,7 +172,16 @@ const { t } = Astro.props;
 
   @media (max-width: 968px) {
     .budget {
-      padding: 4rem 1.5rem;
+      padding: 3rem 1rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
     }
 
     .budget-calculator {
@@ -180,8 +189,22 @@ const { t } = Astro.props;
       gap: 2rem;
     }
 
+    .calculator-form,
+    .result-card {
+      padding: 1.5rem;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
     .budget-result {
       position: static;
+    }
+
+    .total-amount {
+      font-size: 2.5rem;
     }
   }
 </style>

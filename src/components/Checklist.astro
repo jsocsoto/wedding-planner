@@ -181,19 +181,43 @@ const checklistItems = [
 
   @media (max-width: 768px) {
     .checklist {
-      padding: 4rem 1.5rem;
+      padding: 3rem 1rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
     }
 
     .timeline {
-      padding-left: 2rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline::before {
+      width: 3px;
     }
 
     .timeline-marker {
-      left: -2.5rem;
+      left: -2rem;
+      width: 16px;
+      height: 16px;
+      border-width: 3px;
     }
 
     .timeline-content {
-      padding: 1.5rem;
+      padding: 1.25rem;
+    }
+
+    .timeline-period {
+      font-size: 1.2rem;
+    }
+
+    .task-item label {
+      font-size: 0.95rem;
     }
   }
 </style>
