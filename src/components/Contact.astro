@@ -92,7 +92,7 @@ const { t } = Astro.props;
 <style>
   .contact {
     padding: 6rem 2rem;
-    background: linear-gradient(180deg, var(--bg-light) 0%, var(--white) 100%);
+    background: white;
   }
 
   .container {
@@ -101,7 +101,7 @@ const { t } = Astro.props;
   }
 
   .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2rem, 4vw, 3rem);
     color: var(--primary);
     text-align: center;
@@ -122,11 +122,11 @@ const { t } = Astro.props;
   }
 
   .contact-form {
-    background: linear-gradient(145deg, #ffffff 0%, #fffbfc 100%);
+    background: white;
     padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 8px 30px rgba(212, 120, 155, 0.12);
-    border: 2px solid rgba(212, 120, 155, 0.1);
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid var(--border-light);
   }
 
   .form-row {
@@ -150,20 +150,19 @@ const { t } = Astro.props;
   .form-group textarea {
     width: 100%;
     padding: 0.85rem;
-    border: 2px solid rgba(212, 120, 155, 0.2);
-    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    border-radius: 0;
     font-size: 1rem;
     font-family: inherit;
     transition: all 0.3s ease;
-    background: #fffbfc;
+    background: white;
   }
 
   .form-group input:focus,
   .form-group textarea:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(212, 120, 155, 0.1);
-    background: white;
+    box-shadow: none;
   }
 
   .form-group textarea {
@@ -203,17 +202,17 @@ const { t } = Astro.props;
   }
 
   .info-card {
-    background: linear-gradient(145deg, #ffffff 0%, #fff5f8 100%);
+    background: white;
     padding: 1.5rem;
-    border-radius: 15px;
+    border-radius: 0;
     text-align: center;
-    border: 2px solid rgba(212, 120, 155, 0.1);
+    border: 1px solid var(--border-light);
     transition: all 0.3s ease;
   }
 
   .info-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(212, 120, 155, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   }
 
   .info-icon {

@@ -39,7 +39,7 @@ const galleryImages = [
 <style>
   .gallery {
     padding: 6rem 2rem;
-    background: linear-gradient(180deg, var(--bg-light) 0%, var(--white) 100%);
+    background: white;
   }
 
   .container {
@@ -48,7 +48,7 @@ const galleryImages = [
   }
 
   .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2rem, 4vw, 3rem);
     color: var(--primary);
     text-align: center;
@@ -71,29 +71,30 @@ const galleryImages = [
   .gallery-item {
     position: relative;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 0;
     aspect-ratio: 4/3;
     cursor: pointer;
     transition: transform 0.3s ease;
   }
 
   .gallery-item:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 
   .image-placeholder {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #ffe8f0 0%, #f7d5e3 100%);
+    background: var(--bg-light);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
   }
 
   .gallery-item:hover .image-placeholder {
-    background: linear-gradient(135deg, #f7d5e3 0%, #e8b4c8 100%);
+    background: var(--accent);
   }
 
   .placeholder-icon {

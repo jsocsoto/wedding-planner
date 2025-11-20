@@ -62,7 +62,7 @@ const { t } = Astro.props;
 <style>
   .budget {
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, #fffbfc 0%, #fff5f8 100%);
+    background: var(--bg-light);
   }
 
   .container {
@@ -71,7 +71,7 @@ const { t } = Astro.props;
   }
 
   .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2rem, 4vw, 3rem);
     color: var(--primary);
     text-align: center;
@@ -93,11 +93,20 @@ const { t } = Astro.props;
   }
 
   .calculator-form {
-    background: linear-gradient(145deg, #ffffff 0%, #fffbfc 100%);
+    background: white;
     padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 8px 30px rgba(212, 120, 155, 0.12);
-    border: 2px solid rgba(212, 120, 155, 0.1);
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid var(--border-light);
+  }
+
+  .result-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 0;
+    box-shadow: none;
+    text-align: center;
+    border: 1px solid var(--border-light);
   }
 
   .form-group {
@@ -115,19 +124,18 @@ const { t } = Astro.props;
   .form-group select {
     width: 100%;
     padding: 0.85rem;
-    border: 2px solid rgba(212, 120, 155, 0.2);
-    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    border-radius: 0;
     font-size: 1rem;
     transition: all 0.3s ease;
-    background: #fffbfc;
+    background: white;
   }
 
   .form-group input:focus,
   .form-group select:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(212, 120, 155, 0.1);
-    background: white;
+    box-shadow: none;
   }
 
   .calculate-btn {
@@ -141,12 +149,12 @@ const { t } = Astro.props;
   }
 
   .result-card {
-    background: linear-gradient(145deg, #ffffff 0%, #fff5f8 100%);
+    background: white;
     padding: 3rem;
-    border-radius: 20px;
-    box-shadow: 0 12px 45px rgba(212, 120, 155, 0.15);
+    border-radius: 0;
+    box-shadow: none;
     text-align: center;
-    border: 2px solid rgba(212, 120, 155, 0.15);
+    border: 1px solid var(--border-light);
   }
 
   .result-card h3 {
@@ -156,7 +164,7 @@ const { t } = Astro.props;
   }
 
   .total-amount {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 3.5rem;
     font-weight: 700;
     color: var(--primary);

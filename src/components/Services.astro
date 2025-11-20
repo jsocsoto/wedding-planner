@@ -61,7 +61,7 @@ const services = [
 <style>
   .services {
     padding: 6rem 2rem;
-    background: linear-gradient(180deg, var(--white) 0%, var(--bg-light) 100%);
+    background: white;
   }
 
   .container {
@@ -70,7 +70,7 @@ const services = [
   }
 
   .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2rem, 4vw, 3rem);
     color: var(--primary);
     text-align: center;
@@ -94,18 +94,17 @@ const services = [
 
   .service-card {
     padding: 2.5rem;
-    background: linear-gradient(145deg, #ffffff 0%, #fff5f8 100%);
-    border-radius: 20px;
+    background: white;
+    border-radius: 0;
     transition: all 0.4s ease;
-    border: 2px solid rgba(212, 120, 155, 0.1);
-    box-shadow: 0 5px 20px rgba(212, 120, 155, 0.08);
+    border: 1px solid var(--border-light);
+    box-shadow: none;
   }
 
   .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 45px rgba(212, 120, 155, 0.2);
-    border-color: var(--primary-light);
-    background: linear-gradient(145deg, #fffbfc 0%, #ffe8f0 100%);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary);
   }
 
   .service-icon {

@@ -52,7 +52,7 @@ const testimonials = [
 <style>
   .testimonials {
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, #fff5f8 0%, #fffbfc 50%, #ffe8f0 100%);
+    background: var(--bg-light);
   }
 
   .container {
@@ -61,7 +61,7 @@ const testimonials = [
   }
 
   .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2rem, 4vw, 3rem);
     color: var(--primary);
     text-align: center;
@@ -82,27 +82,27 @@ const testimonials = [
   }
 
   .testimonial-card {
-    background: linear-gradient(145deg, #ffffff 0%, #fffbfc 100%);
+    background: white;
     padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(212, 120, 155, 0.12);
+    border-radius: 0;
+    box-shadow: none;
     transition: all 0.4s ease;
     position: relative;
-    border: 2px solid rgba(212, 120, 155, 0.1);
+    border: 1px solid var(--border-light);
   }
 
   .testimonial-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(212, 120, 155, 0.2);
-    border-color: var(--primary-light);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary);
   }
 
   .quote-icon {
     font-size: 4rem;
-    color: var(--primary-light);
+    color: var(--accent);
     line-height: 1;
     margin-bottom: 1rem;
-    opacity: 0.3;
+    opacity: 0.5;
   }
 
   .testimonial-text {

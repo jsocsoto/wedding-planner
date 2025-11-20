@@ -38,7 +38,7 @@ const { t } = Astro.props;
 <style>
   .about {
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, #fff5f8 0%, #fffbfc 50%, #ffe8f0 100%);
+    background: var(--bg-light);
   }
 
   .container {
@@ -58,7 +58,7 @@ const { t } = Astro.props;
   }
 
   .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2rem, 4vw, 3rem);
     color: var(--primary);
     margin-bottom: 1rem;
@@ -87,11 +87,16 @@ const { t } = Astro.props;
   .stat-card {
     text-align: center;
     padding: 2.5rem;
-    background: linear-gradient(145deg, #ffffff 0%, #fffbfc 100%);
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(212, 120, 155, 0.12);
+    background: white;
+    border-radius: 0;
+    box-shadow: none;
     transition: all 0.4s ease;
-    border: 2px solid rgba(212, 120, 155, 0.1);
+    border: 1px solid var(--border-light);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   }
 
   .stat-card:hover {
@@ -99,7 +104,7 @@ const { t } = Astro.props;
   }
 
   .stat-number {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 3rem;
     font-weight: 700;
     color: var(--primary);
