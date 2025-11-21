@@ -14,7 +14,13 @@ const { t } = Astro.props;
     <p class="section-subtitle">{t.contact.subtitle}</p>
     
     <div class="contact-content">
-      <form class="contact-form" id="contactForm">
+      <form class="contact-form" id="contactForm" action="https://formsubmit.co/kimauraallen@gmail.com" method="POST">
+        <!-- FormSubmit Configuration -->
+        <input type="hidden" name="_subject" value="Nueva consulta de boda - Kimaura Wedding Planner">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none">
+        
         <div class="row g-3">
           <div class="col-md-6">
             <label for="name" class="form-label">{t.contact.name}</label>
@@ -278,33 +284,18 @@ const { t } = Astro.props;
 </style>
 
 <script>
+  // El formulario ahora se envía directamente a FormSubmit
+  // En el primer envío, FormSubmit pedirá confirmación del email kimauraallen@gmail.com
+  // Después de confirmar, todos los formularios llegarán automáticamente a ese correo
+  
   const form = document.getElementById('contactForm') as HTMLFormElement;
-  const formMessage = document.getElementById('formMessage') as HTMLElement;
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    
-    // Simulación de envío (aquí se integraría con un backend real)
-    try {
-      // Simular delay de envío
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      console.log('Form data:', data);
-      
-      formMessage.textContent = form.dataset.successMessage || '¡Mensaje enviado! Nos pondremos en contacto pronto.';
-      formMessage.className = 'form-message success';
-      
-      form.reset();
-      
-      setTimeout(() => {
-        formMessage.style.display = 'none';
-      }, 5000);
-    } catch (error) {
-      formMessage.textContent = form.dataset.errorMessage || 'Hubo un error. Por favor intenta nuevamente.';
-      formMessage.className = 'form-message error';
+  
+  // Opcional: Mostrar mensaje de "enviando..." mientras se procesa
+  form?.addEventListener('submit', () => {
+    const submitBtn = form.querySelector('.submit-btn') as HTMLButtonElement;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
     }
   });
 </script>
