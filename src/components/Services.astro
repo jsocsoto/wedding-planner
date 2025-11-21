@@ -9,32 +9,32 @@ const { t } = Astro.props;
 
 const services = [
   {
-    icon: '✨',
+    icon: 'fas fa-magic',
     title: t.services.fullPlanning.title,
     description: t.services.fullPlanning.description
   },
   {
-    icon: '📋',
+    icon: 'fas fa-clipboard-list',
     title: t.services.partialPlanning.title,
     description: t.services.partialPlanning.description
   },
   {
-    icon: '🎯',
+    icon: 'fas fa-calendar-check',
     title: t.services.dayOf.title,
     description: t.services.dayOf.description
   },
   {
-    icon: '🎨',
+    icon: 'fas fa-palette',
     title: t.services.design.title,
     description: t.services.design.description
   },
   {
-    icon: '🤝',
+    icon: 'fas fa-handshake',
     title: t.services.vendors.title,
     description: t.services.vendors.description
   },
   {
-    icon: '✈️',
+    icon: 'fas fa-plane-departure',
     title: t.services.destination.title,
     description: t.services.destination.description
   }
@@ -49,7 +49,7 @@ const services = [
     <div class="services-grid">
       {services.map(service => (
         <div class="service-card">
-          <div class="service-icon">{service.icon}</div>
+          <div class="service-icon"><i class={service.icon}></i></div>
           <h3 class="service-title">{service.title}</h3>
           <p class="service-description">{service.description}</p>
         </div>
