@@ -18,6 +18,7 @@ const { title, description = "Kimaura Wedding Planner - Hacemos realidad la boda
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<title>{title}</title>
 	</head>
 	<body>
@@ -123,5 +124,58 @@ const { title, description = "Kimaura Wedding Planner - Hacemos realidad la boda
 	/* Smooth scroll offset for fixed navbar */
 	section {
 		scroll-margin-top: 80px;
+	}
+
+	/* Bootstrap customization */
+	.form-control,
+	.form-select {
+		border-radius: 0 !important;
+		border: 1px solid var(--border-light) !important;
+		padding: 0.85rem !important;
+		font-size: 1rem !important;
+		transition: all 0.3s ease !important;
+		font-family: 'Montserrat', sans-serif !important;
+	}
+
+	.form-control:focus,
+	.form-select:focus {
+		border-color: var(--primary) !important;
+		box-shadow: 0 0 0 0.2rem rgba(201, 168, 124, 0.15) !important;
+	}
+
+	.form-label {
+		color: var(--text-primary) !important;
+		font-weight: 500 !important;
+		margin-bottom: 0.5rem !important;
+		font-size: 0.95rem !important;
+	}
+
+	.btn.btn-primary {
+		background-color: var(--primary) !important;
+		border-color: var(--primary) !important;
+		border-radius: 50px !important;
+		padding: 1rem 2rem !important;
+		text-transform: uppercase !important;
+		letter-spacing: 1px !important;
+		font-weight: 500 !important;
+		transition: all 0.3s ease !important;
+		line-height: 1 !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+	}
+
+	.btn.btn-primary:hover {
+		background-color: var(--primary-dark) !important;
+		border-color: var(--primary-dark) !important;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 15px rgba(201, 168, 124, 0.3) !important;
+	}
+
+	.btn.btn-primary:focus,
+	.btn.btn-primary:active {
+		background-color: var(--primary-dark) !important;
+		border-color: var(--primary-dark) !important;
+		box-shadow: 0 0 0 0.2rem rgba(201, 168, 124, 0.25) !important;
 	}
 </style>
