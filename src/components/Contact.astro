@@ -198,6 +198,18 @@ const { t } = Astro.props;
     color: var(--text-secondary);
   }
 
+  .info-card a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+
+  .info-card a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+  }
+
   .social-links {
     display: flex;
     justify-content: center;
@@ -209,10 +221,12 @@ const { t } = Astro.props;
     font-size: 2rem;
     text-decoration: none;
     transition: transform 0.3s ease;
+    color: var(--primary);
   }
 
   .social-links a:hover {
     transform: scale(1.2);
+    color: var(--primary-dark);
   }
 
   @media (max-width: 968px) {
