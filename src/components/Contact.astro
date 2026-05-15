@@ -1,301 +1,367 @@
 ---
-import type { translations } from '../i18n/translations';
-
-interface Props {
-  t: typeof translations.es | typeof translations.en;
-}
-
-const { t } = Astro.props;
 ---
 
 <section id="contact" class="contact">
-  <div class="container">
-    <h2 class="section-title">{t.contact.title}</h2>
-    <p class="section-subtitle">{t.contact.subtitle}</p>
-    
-    <div class="contact-content">
-      <form class="contact-form" id="contactForm" action="https://formsubmit.co/kimauraallen@gmail.com" method="POST">
-        <!-- FormSubmit Configuration -->
-        <input type="hidden" name="_subject" value="Nueva consulta de boda - Kimaura Wedding Planner">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="text" name="_honey" style="display:none">
-        
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label for="name" class="form-label">{t.contact.name}</label>
-            <input type="text" id="name" name="name" class="form-control" required />
-          </div>
+  <div class="contact-inner">
 
-          <div class="col-md-6">
-            <label for="email" class="form-label">{t.contact.email}</label>
-            <input type="email" id="email" name="email" class="form-control" required />
-          </div>
+    <!-- Left: info -->
+    <div class="contact-info">
+      <span class="section-eyebrow">Contacto</span>
+
+      <h2 class="contact-title">
+        Escribamos tu<br/>próximo capítulo.
+      </h2>
+
+      <p class="contact-avail">
+        Actualmente aceptando celebraciones<br/>
+        <strong>2026 – 2027</strong>
+      </p>
+
+      <ul class="contact-channels">
+        <li>
+          <a href="https://wa.me/50664708592" target="_blank" rel="noopener" class="channel">
+            <span class="material-symbols-outlined ch-icon">call</span>
+            <span class="ch-body">
+              <span class="ch-label">WhatsApp</span>
+              <span class="ch-value">6470 8592</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="mailto:info@kimauraallen.com" class="channel">
+            <span class="material-symbols-outlined ch-icon">mail</span>
+            <span class="ch-body">
+              <span class="ch-label">Email</span>
+              <span class="ch-value">info@kimauraallen.com</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/kimaurallen/" target="_blank" rel="noopener" class="channel">
+            <span class="material-symbols-outlined ch-icon">photo_camera</span>
+            <span class="ch-body">
+              <span class="ch-label">Instagram</span>
+              <span class="ch-value">@kimaurallen</span>
+            </span>
+          </a>
+        </li>
+        <li class="channel channel--plain">
+          <span class="material-symbols-outlined ch-icon">location_on</span>
+          <span class="ch-body">
+            <span class="ch-label">Localización</span>
+            <span class="ch-value">San José &amp; Guanacaste, Costa Rica</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right: form -->
+    <form
+      class="contact-form"
+      id="contactForm"
+      action="https://formsubmit.co/kimauraallen@gmail.com"
+      method="POST"
+    >
+      <input type="hidden" name="_subject" value="Nueva consulta — Kimaura Allen Events">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+      <p class="form-intro">
+        Cuéntanos sobre tu celebración y nos pondremos en contacto en las próximas 24 horas.
+      </p>
+
+      <div class="form-row">
+        <div class="field">
+          <label class="field-label" for="f-name">Nombre completo</label>
+          <input id="f-name" type="text" name="name" class="field-input" placeholder="Tu nombre" required />
         </div>
-
-        <div class="row g-3 mt-1">
-          <div class="col-md-6">
-            <label for="phone" class="form-label">{t.contact.phone}</label>
-            <input type="tel" id="phone" name="phone" class="form-control" required />
-          </div>
-
-          <div class="col-md-6">
-            <label for="date" class="form-label">{t.contact.date}</label>
-            <input type="date" id="date" name="date" class="form-control" />
-          </div>
-        </div>
-
-        <div class="mb-3 mt-3">
-          <label for="guests" class="form-label">{t.contact.guests}</label>
-          <input type="number" id="contactGuests" name="guests" min="1" max="1000" pattern="[0-9]*" inputmode="numeric" class="form-control" />
-        </div>
-
-        <div class="mb-4">
-          <label for="message" class="form-label">{t.contact.message}</label>
-          <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary submit-btn w-100">{t.contact.send}</button>
-        
-        <div class="form-message" id="formMessage"></div>
-      </form>
-
-      <div class="contact-info">
-        <div class="info-card">
-          <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
-          <h3>Ubicación</h3>
-          <p>Mercedes Norte de Heredia, Costa Rica</p>
-        </div>
-
-        <div class="info-card">
-          <div class="info-icon"><i class="fas fa-envelope"></i></div>
-          <h3>Email</h3>
-          <p><a href="mailto:kimauraallen@gmail.com">kimauraallen@gmail.com</a></p>
-        </div>
-
-        <div class="info-card">
-          <div class="info-icon"><i class="fas fa-phone"></i></div>
-          <h3>Teléfono</h3>
-          <p><a href="tel:+50662366444">+506 62366444</a></p>
-        </div>
-
-        <div class="info-card">
-          <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
-          <h3>Whatsapp</h3>
-          <p><a href="https://wa.me/50662366444">+506 62366444</a></p>
-        </div>
-
-        <div class="social-links">
-          <a href="https://www.instagram.com/kimaurallen/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.facebook.com/kimaurallen/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+        <div class="field">
+          <label class="field-label" for="f-email">Correo electrónico</label>
+          <input id="f-email" type="email" name="email" class="field-input" placeholder="hola@ejemplo.com" required />
         </div>
       </div>
-    </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label class="field-label" for="f-phone">WhatsApp / Teléfono</label>
+          <input id="f-phone" type="tel" name="phone" class="field-input" placeholder="+1 000 000 0000" />
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-date">Fecha tentativa</label>
+          <input id="f-date" type="date" name="date" class="field-input" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="f-service">Tipo de celebración</label>
+        <select id="f-service" name="service" class="field-input field-select">
+          <option value="destination">Destination Experience</option>
+          <option value="full">Full Planning</option>
+          <option value="concierge">Wedding Concierge</option>
+          <option value="elopement">Elopement</option>
+          <option value="consultoria">Consultoría</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="f-msg">Tu visión</label>
+        <textarea id="f-msg" name="message" rows="4" class="field-input field-textarea"
+          placeholder="Cuéntanos sobre tu boda soñada, el destino que tienes en mente, el número de invitados…" required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        Enviar solicitud
+      </button>
+    </form>
+
   </div>
 </section>
 
 <style>
   .contact {
-    padding: 6rem 2rem;
-    background: white;
+    padding: 8rem 0;
+    background: var(--surface-low);
   }
 
-  .container {
-    max-width: 1200px;
+  .contact-inner {
+    max-width: 1280px;
     margin: 0 auto;
-  }
-
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: var(--primary);
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  .section-subtitle {
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    margin-bottom: 4rem;
-  }
-
-  .contact-content {
+    padding: 0 80px;
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 6rem;
+    align-items: start;
   }
 
-  .contact-form {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 0;
-    box-shadow: none;
-    border: 1px solid var(--border-light);
-  }
-
-  .submit-btn {
+  /* ── Info column ───────────────────────── */
+  .section-eyebrow {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
-    border: none;
-    background-color: var(--primary) !important;
-    margin-top: 1rem;
+    color: var(--warm-taupe);
+    margin-bottom: 1.25rem;
   }
 
-  .submit-btn:hover {
-    background-color: var(--primary-dark) !important;
+  .contact-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.25rem, 4vw, 3.5rem);
+    font-weight: 400;
+    color: var(--primary);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
   }
 
-  .form-message {
-    margin-top: 1rem;
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: 500;
-    display: none;
+  .contact-avail {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    border-left: 2px solid var(--soft-blush);
+    background: rgba(244, 219, 216, 0.2);
   }
 
-  .form-message.success {
-    background: #d4edda;
-    color: #155724;
-    display: block;
+  .contact-avail strong {
+    font-weight: 600;
+    color: var(--deep-earth);
   }
 
-  .form-message.error {
-    background: #f8d7da;
-    color: #721c24;
-    display: block;
+  .contact-channels {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
-  .contact-info {
+  .channel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--outline-variant);
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.25s ease;
+  }
+
+  .channel--plain {
+    cursor: default;
+  }
+
+  a.channel:hover {
+    opacity: 0.7;
+  }
+
+  .ch-icon {
+    font-size: 1.2rem;
+    color: var(--deep-earth);
+    flex-shrink: 0;
+  }
+
+  .ch-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .ch-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-taupe);
+  }
+
+  .ch-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--deep-earth);
+  }
+
+  /* ── Form column ───────────────────────── */
+  .contact-form {
+    background: var(--surface);
+    padding: 3rem 3.25rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    box-shadow: 24px 24px 80px rgba(58, 21, 1, 0.04), -8px -8px 40px rgba(255,255,255,0.7);
   }
 
-  .info-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 0;
-    text-align: center;
-    border: 1px solid var(--border-light);
-    transition: all 0.3s ease;
+  .form-intro {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--outline-variant);
   }
 
-  .info-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
   }
 
-  .info-icon {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
-  .info-card h3 {
-    color: var(--primary);
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .info-card p {
+  .field-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--text-secondary);
   }
 
-  .info-card a {
-    color: var(--primary);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 500;
+  .field-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--outline-variant);
+    padding: 0.6rem 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.25s ease;
+    width: 100%;
   }
 
-  .info-card a:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
+  .field-input::placeholder {
+    color: var(--warm-taupe);
+    opacity: 0.55;
+    font-style: italic;
   }
 
-  .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
+  .field-input:focus {
+    border-bottom-color: var(--deep-earth);
   }
 
-  .social-links a {
-    font-size: 2rem;
-    text-decoration: none;
-    transition: transform 0.3s ease;
-    color: var(--primary);
+  .field-select {
+    appearance: none;
+    font-style: normal;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23bfa09c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+    padding-right: 1.25rem;
   }
 
-  .social-links a:hover {
-    transform: scale(1.2);
-    color: var(--primary-dark);
+  .field-textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.6;
   }
 
-  @media (max-width: 968px) {
-    .contact {
-      padding: 3rem 1rem;
-    }
+  .submit-btn {
+    width: 100%;
+    padding: 1.1rem;
+    background: var(--deep-earth);
+    color: var(--soft-blush);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+    margin-top: 0.5rem;
+  }
 
-    .section-title {
-      font-size: 2rem;
-    }
+  .submit-btn:hover {
+    opacity: 0.88;
+  }
 
-    .section-subtitle {
-      font-size: 1rem;
-      margin-bottom: 2.5rem;
-    }
+  .submit-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
 
-    .contact-content {
+  /* ── Responsive ────────────────────────── */
+  @media (max-width: 900px) {
+    .contact-inner {
+      padding: 0 24px;
       grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .contact-form {
-      padding: 1.5rem;
+      gap: 3.5rem;
     }
 
     .form-row {
       grid-template-columns: 1fr;
-      gap: 1rem;
     }
 
-    .form-group label {
-      font-size: 0.95rem;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      padding: 0.75rem;
-      font-size: 0.95rem;
-    }
-
-    .info-card {
-      padding: 1.25rem;
-    }
-
-    .info-icon {
-      font-size: 2rem;
+    .contact-form {
+      padding: 2rem;
     }
   }
 </style>
 
 <script>
-  // El formulario ahora se envía directamente a FormSubmit
-  // En el primer envío, FormSubmit pedirá confirmación del email kimauraallen@gmail.com
-  // Después de confirmar, todos los formularios llegarán automáticamente a ese correo
-  
   const form = document.getElementById('contactForm') as HTMLFormElement;
-  
-  // Opcional: Mostrar mensaje de "enviando..." mientras se procesa
+  const btn  = document.getElementById('submitBtn')  as HTMLButtonElement;
+
   form?.addEventListener('submit', () => {
-    const submitBtn = form.querySelector('.submit-btn') as HTMLButtonElement;
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
+    if (btn) {
+      btn.disabled    = true;
+      btn.textContent = 'Enviando…';
     }
   });
 </script>

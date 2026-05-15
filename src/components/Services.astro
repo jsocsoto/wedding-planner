@@ -1,162 +1,273 @@
 ---
-import type { translations } from '../i18n/translations';
-
-interface Props {
-  t: typeof translations.es | typeof translations.en;
-}
-
-const { t } = Astro.props;
-
 const services = [
   {
-    icon: 'fas fa-magic',
-    title: t.services.fullPlanning.title,
-    description: t.services.fullPlanning.description
+    icon: 'travel_explore',
+    tag: '01',
+    title: 'Destination Experiences',
+    description: 'Logística integral y visión creativa para parejas que sueñan con casarse en el paraíso tropical de Costa Rica. Cada destino, curado con intención.'
   },
   {
-    icon: 'fas fa-clipboard-list',
-    title: t.services.partialPlanning.title,
-    description: t.services.partialPlanning.description
+    icon: 'event_available',
+    tag: '02',
+    title: 'Full Planning',
+    description: 'Desde la primera reunión hasta el último detalle del día, te acompaño en cada paso para que solo tengas que estar presente y disfrutar.'
   },
   {
-    icon: 'fas fa-calendar-check',
-    title: t.services.dayOf.title,
-    description: t.services.dayOf.description
+    icon: 'concierge',
+    tag: '03',
+    title: 'Wedding Concierge',
+    description: 'Atención personalizada de alto nivel para tus invitados y anfitriones. Hospitalidad que convierte cada momento en una experiencia memorable.'
   },
   {
-    icon: 'fas fa-palette',
-    title: t.services.design.title,
-    description: t.services.design.description
+    icon: 'favorite',
+    tag: '04',
+    title: 'Elopements',
+    description: 'Celebraciones íntimas, cargadas de significado, en locaciones secretas y lugares de ensueño. Solo tú, tu pareja y la belleza de Costa Rica.'
   },
   {
-    icon: 'fas fa-handshake',
-    title: t.services.vendors.title,
-    description: t.services.vendors.description
-  },
-  {
-    icon: 'fas fa-plane-departure',
-    title: t.services.destination.title,
-    description: t.services.destination.description
+    icon: 'lightbulb',
+    tag: '05',
+    title: 'Consultorías',
+    description: 'Asesoría estratégica y personalizada para parejas que buscan una guía experta en los momentos clave de su organización.',
+    featured: true
   }
 ];
 ---
 
 <section id="services" class="services">
-  <div class="container">
-    <h2 class="section-title">{t.services.title}</h2>
-    <p class="section-subtitle">{t.services.subtitle}</p>
-    
+  <div class="services-inner">
+
+    <header class="section-header">
+      <span class="section-eyebrow">Servicios</span>
+      <h2 class="section-title">Propuestas Exclusivas</h2>
+      <p class="section-sub">
+        Cada servicio está diseñado para sentirse curado, exclusivo y emocionalmente conectado —
+        no solo logístico, sino verdaderamente tuyo.
+      </p>
+    </header>
+
     <div class="services-grid">
-      {services.map(service => (
-        <div class="service-card">
-          <div class="service-icon"><i class={service.icon}></i></div>
-          <h3 class="service-title">{service.title}</h3>
-          <p class="service-description">{service.description}</p>
-        </div>
+      {services.map((s) => (
+        <article class={`service-card ${s.featured ? 'service-card--featured' : ''}`}>
+          <div class="card-top">
+            <span class="card-tag">{s.tag}</span>
+            <span class={`material-symbols-outlined card-icon ${s.featured ? 'card-icon--featured' : ''}`}>
+              {s.icon}
+            </span>
+          </div>
+          <h3 class="card-title">{s.title}</h3>
+          <p class="card-desc">{s.description}</p>
+          <a href="#contact" class="card-link">
+            Saber más <span>→</span>
+          </a>
+        </article>
       ))}
     </div>
+
   </div>
 </section>
 
 <style>
   .services {
-    padding: 6rem 2rem;
-    background: white;
+    padding: 8rem 0;
+    background: var(--surface-low);
   }
 
-  .container {
-    max-width: 1200px;
+  .services-inner {
+    max-width: 1280px;
     margin: 0 auto;
+    padding: 0 80px;
+  }
+
+  /* ── Header ────────────────────────────── */
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .section-eyebrow {
+    grid-column: 1 / -1;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm-taupe);
   }
 
   .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 400;
     color: var(--primary);
-    text-align: center;
-    margin-bottom: 1rem;
+    margin: 0;
+    line-height: 1.15;
   }
 
-  .section-subtitle {
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto 4rem;
-    line-height: 1.6;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-
-  .service-card {
-    padding: 2.5rem;
-    background: white;
-    border-radius: 0;
-    transition: all 0.4s ease;
-    border: 1px solid var(--border-light);
-    box-shadow: none;
-  }
-
-  .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border-color: var(--primary);
-  }
-
-  .service-icon {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .service-title {
-    font-size: 1.5rem;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    font-weight: 600;
-  }
-
-  .service-description {
+  .section-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 300;
     color: var(--text-secondary);
     line-height: 1.7;
-    font-size: 1rem;
+    margin: 0;
   }
 
-  @media (max-width: 768px) {
-    .services {
-      padding: 3rem 1rem;
+  /* ── Grid ──────────────────────────────── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+  }
+
+  /* ── Card ──────────────────────────────── */
+  .service-card {
+    background: var(--surface);
+    padding: 2.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--deep-earth);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+
+  .service-card:hover::after {
+    transform: scaleX(1);
+  }
+
+  .service-card--featured {
+    grid-column: span 2;
+    background: var(--soft-blush);
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .service-card--featured .card-top,
+  .service-card--featured .card-title,
+  .service-card--featured .card-desc,
+  .service-card--featured .card-link {
+    flex-basis: 100%;
+  }
+
+  /* ── Card internals ────────────────────── */
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.75rem;
+  }
+
+  .card-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--warm-taupe);
+  }
+
+  .card-icon {
+    font-size: 1.75rem;
+    color: var(--warm-taupe);
+    font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .card-icon--featured {
+    color: var(--deep-earth);
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.375rem;
+    font-weight: 400;
+    color: var(--primary);
+    margin-bottom: 0.875rem;
+    line-height: 1.25;
+  }
+
+  .service-card--featured .card-title {
+    color: var(--deep-earth);
+  }
+
+  .card-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: auto;
+    flex-grow: 1;
+  }
+
+  .service-card--featured .card-desc {
+    color: var(--deep-earth);
+    opacity: 0.8;
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--deep-earth);
+    text-decoration: none;
+    margin-top: 2rem;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .service-card:hover .card-link {
+    opacity: 1;
+  }
+
+  .service-card--featured .card-link {
+    opacity: 1;
+  }
+
+  /* ── Responsive ────────────────────────── */
+  @media (max-width: 900px) {
+    .services-inner {
+      padding: 0 24px;
     }
 
-    .section-title {
-      font-size: 2rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-subtitle {
-      font-size: 1rem;
-      padding: 0 1rem;
-      margin-bottom: 2.5rem;
+    .section-header {
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
 
     .services-grid {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 1.5px;
     }
 
-    .service-card {
-      padding: 2rem;
+    .service-card--featured {
+      grid-column: span 1;
     }
 
-    .service-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .service-title {
-      font-size: 1.3rem;
+    .card-link {
+      opacity: 1;
     }
   }
 </style>

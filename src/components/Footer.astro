@@ -1,168 +1,223 @@
 ---
-import type { translations } from '../i18n/translations';
-
-interface Props {
-  t: typeof translations.es | typeof translations.en;
-}
-
-const { t } = Astro.props;
-const currentYear = new Date().getFullYear();
+const year = new Date().getFullYear();
 ---
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3 class="footer-logo">Kimaura</h3>
-        <p class="footer-tagline">Wedding Planner</p>
-      </div>
+<footer class="site-footer">
+  <div class="footer-inner">
 
-      <div class="footer-links">
-        <a href="#home">{t.nav.home}</a>
-        <a href="#services">{t.nav.services}</a>
-        <a href="#about">{t.nav.about}</a>
-        <a href="#contact">{t.nav.contact}</a>
+    <div class="footer-brand">
+      <p class="brand-name">Kimaura Allen Events</p>
+      <p class="brand-tagline">
+        Luxury destination weddings &amp; intimate celebrations in Costa Rica.
+      </p>
+      <div class="brand-social">
+        <a href="https://www.instagram.com/kimaurallen/" target="_blank" rel="noopener" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/50664708592" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="mailto:info@kimauraallen.com" aria-label="Email">
+          <span class="material-symbols-outlined">mail</span>
+        </a>
       </div>
+    </div>
 
-      <div class="footer-social">
-        <p class="social-title">{t.footer.follow}</p>
-        <div class="social-icons">
-          <a href="https://www.instagram.com/kimaurallen/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.facebook.com/kimaurallen/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
-        </div>
-      </div>
+    <div class="footer-nav">
+      <h4 class="footer-heading">Navigate</h4>
+      <ul>
+        <li><a href="#home">Inicio</a></li>
+        <li><a href="#about">La Fundadora</a></li>
+        <li><a href="#services">Servicios</a></li>
+        <li><a href="#gallery">Portfolio</a></li>
+        <li><a href="#testimonials">Testimonios</a></li>
+        <li><a href="#contact">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4 class="footer-heading">Contacto</h4>
+      <ul>
+        <li><a href="https://wa.me/50664708592" target="_blank" rel="noopener">WhatsApp: 6470 8592</a></li>
+        <li><a href="mailto:info@kimauraallen.com">info@kimauraallen.com</a></li>
+        <li><a href="https://www.instagram.com/kimaurallen/" target="_blank" rel="noopener">@kimaurallen</a></li>
+      </ul>
+      <p class="footer-location">
+        <span class="material-symbols-outlined loc-icon">location_on</span>
+        San José &amp; Guanacaste,<br/>Costa Rica
+      </p>
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; {currentYear} Kimaura Wedding Planner. {t.footer.rights}.</p>
+      <p class="footer-copy">&copy; {year} Kimaura Allen Events — Pura Vida.</p>
+      <p class="footer-made">Luxury destination weddings · Costa Rica</p>
     </div>
+
   </div>
 </footer>
 
 <style>
-  .footer {
-    background: var(--text-primary);
-    color: white;
-    padding: 3rem 2rem 1.5rem;
+  .site-footer {
+    background: var(--surface-container);
+    padding: 5rem 0 0;
   }
 
-  .container {
-    max-width: 1200px;
+  .footer-inner {
+    max-width: 1280px;
     margin: 0 auto;
-  }
-
-  .footer-content {
+    padding: 0 80px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    grid-template-columns: 2.5fr 1fr 1.5fr;
+    gap: 3rem 4rem;
+    border-top: 1px solid var(--outline-variant);
+    padding-top: 4rem;
   }
 
-  .footer-brand {
-    text-align: left;
+  /* ── Brand ─────────────────────────────── */
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--deep-earth);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
   }
 
-  .footer-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
+  .brand-tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 280px;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+
+  .brand-social {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .brand-social a {
+    font-size: 1.25rem;
+    color: var(--deep-earth);
+    opacity: 0.5;
+    text-decoration: none;
+    transition: opacity 0.25s ease;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .brand-social a:hover {
+    opacity: 1;
+    color: var(--deep-earth);
+  }
+
+  .brand-social .material-symbols-outlined {
+    font-size: 1.25rem;
+  }
+
+  /* ── Nav / Contact ─────────────────────── */
+  .footer-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
     font-weight: 700;
-    color: var(--primary-light);
-    margin-bottom: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--deep-earth);
+    margin-bottom: 1.25rem;
   }
 
-  .footer-tagline {
-    color: rgba(255, 255, 255, 0.7);
-    font-style: italic;
-  }
-
-  .footer-links {
+  .footer-nav ul,
+  .footer-contact ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .footer-links a {
-    color: rgba(255, 255, 255, 0.8);
+  .footer-nav a,
+  .footer-contact a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    opacity: 0.8;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.25s ease, opacity 0.25s ease;
   }
 
-  .footer-links a:hover {
-    color: var(--primary-light);
-  }
-
-  .footer-social {
-    text-align: center;
-  }
-
-  .social-title {
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 1rem;
-  }
-
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .social-icons a {
-    font-size: 1.8rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    color: var(--primary-light);
-  }
-
-  .social-icons a:hover {
-    transform: scale(1.2);
+  .footer-nav a:hover,
+  .footer-contact a:hover {
     color: var(--primary);
+    opacity: 1;
   }
 
+  .footer-location {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    line-height: 1.7;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .loc-icon {
+    font-size: 1rem;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+  }
+
+  /* ── Bottom ────────────────────────────── */
   .footer-bottom {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9rem;
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.75rem 0;
+    border-top: 1px solid rgba(215, 194, 186, 0.3);
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
-  @media (max-width: 768px) {
-    .footer {
-      padding: 2rem 1rem 1rem;
-    }
+  .footer-copy,
+  .footer-made {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--deep-earth);
+    opacity: 0.5;
+    margin: 0;
+  }
 
-    .footer-content {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      text-align: center;
-      padding-bottom: 1.5rem;
+  /* ── Responsive ────────────────────────── */
+  @media (max-width: 900px) {
+    .footer-inner {
+      padding: 2rem 24px 0;
+      grid-template-columns: 1fr 1fr;
     }
 
     .footer-brand {
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-size: 1.5rem;
-    }
-
-    .footer-links {
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .footer-links a {
-      font-size: 0.95rem;
-    }
-
-    .social-icons a {
-      font-size: 1.5rem;
+      grid-column: 1 / -1;
     }
 
     .footer-bottom {
-      font-size: 0.85rem;
-      padding-top: 1rem;
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
     }
   }
 </style>
