@@ -118,7 +118,7 @@ const titleLines = c.title.split('\n');
       </ul>
     </div>
 
-    <form class="contact-form" id="contactForm" data-lang={lang}
+    <form class="contact-form" id="contactForm" data-lang={lang} novalidate
       action="https://formsubmit.co/kimauraallen@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="Nueva consulta — Kimaura Allen Events">
       <input type="hidden" name="_captcha" value="false">
@@ -131,10 +131,12 @@ const titleLines = c.title.split('\n');
         <div class="field">
           <label class="field-label" for="f-name">{c.fields.name}</label>
           <input id="f-name" type="text" name="name" class="field-input" placeholder={c.fields.namePh} required />
+          <span class="field-error" id="err-name"></span>
         </div>
         <div class="field">
           <label class="field-label" for="f-email">{c.fields.email}</label>
           <input id="f-email" type="email" name="email" class="field-input" placeholder={c.fields.emailPh} required />
+          <span class="field-error" id="err-email"></span>
         </div>
       </div>
 
@@ -160,6 +162,7 @@ const titleLines = c.title.split('\n');
         <label class="field-label" for="f-msg">{c.fields.msg}</label>
         <textarea id="f-msg" name="message" rows="4" class="field-input field-textarea"
           placeholder={c.fields.msgPh} required></textarea>
+        <span class="field-error" id="err-msg"></span>
       </div>
 
       <button type="submit" class="submit-btn" id="submitBtn">{c.submit}</button>
@@ -280,6 +283,18 @@ const titleLines = c.title.split('\n');
 
   .field-input::placeholder { color: var(--warm-taupe); opacity: 0.55; }
   .field-input:focus { border-bottom-color: var(--deep-earth); }
+  .field-input.has-error { border-bottom-color: #b8705a; }
+
+  .field-error {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: #b8705a;
+    min-height: 1em;
+    padding-top: 0.35rem;
+  }
 
   .field-select {
     appearance: none; font-style: normal; cursor: pointer;
@@ -324,31 +339,52 @@ const titleLines = c.title.split('\n');
     es: {
       valueMissing: 'Por favor completa este campo.',
       typeMismatch: 'Por favor ingresa un correo electrónico válido.',
-      generic:      'Este campo no es válido.',
     },
     en: {
       valueMissing: 'This field is required.',
       typeMismatch: 'Please enter a valid email address.',
-      generic:      'This field is not valid.',
     },
   }[lang];
 
-  const fields = form?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('[required]');
+  const required = [
+    { inputId: 'f-name',  errId: 'err-name' },
+    { inputId: 'f-email', errId: 'err-email' },
+    { inputId: 'f-msg',   errId: 'err-msg' },
+  ];
 
-  fields?.forEach(el => {
-    el.addEventListener('invalid', () => {
-      if (el.validity.valueMissing) {
-        el.setCustomValidity(msg.valueMissing);
-      } else if (el.validity.typeMismatch) {
-        el.setCustomValidity(msg.typeMismatch);
-      } else {
-        el.setCustomValidity(msg.generic);
-      }
-    });
-    el.addEventListener('input', () => el.setCustomValidity(''));
+  function getError(el: HTMLInputElement | HTMLTextAreaElement): string {
+    if (el.validity.valueMissing) return msg.valueMissing;
+    if (el.validity.typeMismatch) return msg.typeMismatch;
+    return '';
+  }
+
+  function clearError(inputId: string, errId: string) {
+    const input = document.getElementById(inputId) as HTMLInputElement | HTMLTextAreaElement;
+    const err   = document.getElementById(errId);
+    input?.classList.remove('has-error');
+    if (err) err.textContent = '';
+  }
+
+  required.forEach(({ inputId, errId }) => {
+    const input = document.getElementById(inputId) as HTMLInputElement | HTMLTextAreaElement;
+    input?.addEventListener('input', () => clearError(inputId, errId));
   });
 
-  form?.addEventListener('submit', () => {
+  form?.addEventListener('submit', (e) => {
+    let valid = true;
+
+    required.forEach(({ inputId, errId }) => {
+      const input = document.getElementById(inputId) as HTMLInputElement | HTMLTextAreaElement;
+      const err   = document.getElementById(errId);
+      const msg   = getError(input);
+      if (msg) {
+        input.classList.add('has-error');
+        if (err) err.textContent = msg;
+        valid = false;
+      }
+    });
+
+    if (!valid) { e.preventDefault(); return; }
     if (btn) { btn.disabled = true; btn.textContent = '…'; }
   });
 </script>
