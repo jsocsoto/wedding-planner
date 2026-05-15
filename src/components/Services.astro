@@ -203,7 +203,15 @@ const c = copy[lang];
     .section-header { grid-template-columns: 1fr; gap: 1rem; }
     .services-grid { grid-template-columns: 1fr; gap: 1.5px; }
     .service-card { padding: 2rem; }
-    .service-card--featured { grid-column: span 1; flex-direction: column; }
+    .service-card--featured {
+      grid-column: span 1;
+      flex-direction: column;
+      gap: 0;
+    }
+    .service-card--featured .card-top,
+    .service-card--featured .card-title,
+    .service-card--featured .card-desc,
+    .service-card--featured .card-link { flex-basis: auto; }
     .card-link { opacity: 1; }
   }
 </style>
