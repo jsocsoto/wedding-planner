@@ -118,7 +118,7 @@ const titleLines = c.title.split('\n');
       </ul>
     </div>
 
-    <form class="contact-form" id="contactForm"
+    <form class="contact-form" id="contactForm" data-lang={lang}
       action="https://formsubmit.co/kimauraallen@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="Nueva consulta — Kimaura Allen Events">
       <input type="hidden" name="_captcha" value="false">
@@ -317,6 +317,37 @@ const titleLines = c.title.split('\n');
 <script>
   const form = document.getElementById('contactForm') as HTMLFormElement;
   const btn  = document.getElementById('submitBtn')  as HTMLButtonElement;
+
+  const lang = (form?.dataset.lang ?? 'es') as 'es' | 'en';
+
+  const msg = {
+    es: {
+      valueMissing: 'Por favor completa este campo.',
+      typeMismatch: 'Por favor ingresa un correo electrónico válido.',
+      generic:      'Este campo no es válido.',
+    },
+    en: {
+      valueMissing: 'This field is required.',
+      typeMismatch: 'Please enter a valid email address.',
+      generic:      'This field is not valid.',
+    },
+  }[lang];
+
+  const fields = form?.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('[required]');
+
+  fields?.forEach(el => {
+    el.addEventListener('invalid', () => {
+      if (el.validity.valueMissing) {
+        el.setCustomValidity(msg.valueMissing);
+      } else if (el.validity.typeMismatch) {
+        el.setCustomValidity(msg.typeMismatch);
+      } else {
+        el.setCustomValidity(msg.generic);
+      }
+    });
+    el.addEventListener('input', () => el.setCustomValidity(''));
+  });
+
   form?.addEventListener('submit', () => {
     if (btn) { btn.disabled = true; btn.textContent = '…'; }
   });
