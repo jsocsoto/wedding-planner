@@ -88,6 +88,7 @@ const otherLabel = lang === 'es' ? 'English version' : 'Versión en español';
     <div class="footer-bottom">
       <p class="footer-copy">&copy; {year} Kimaura Allen Events — {c.copyright}</p>
       <p class="footer-sub">{c.sub}</p>
+      <p class="footer-dev">Desarrollado por Octavio Soto</p>
     </div>
 
   </div>
@@ -191,6 +192,14 @@ const otherLabel = lang === 'es' ? 'English version' : 'Versión en español';
     font-family: 'Montserrat', sans-serif;
     font-size: 0.75rem; font-weight: 400;
     color: var(--deep-earth); opacity: 0.5; margin: 0;
+  }
+
+  .footer-dev {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem; font-weight: 400;
+    color: var(--deep-earth); opacity: 0.35; margin: 0;
+    grid-column: 1 / -1; text-align: center;
+    padding-top: 0.5rem;
   }
 
   @media (max-width: 900px) {
