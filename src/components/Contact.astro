@@ -118,12 +118,10 @@ const titleLines = c.title.split('\n');
       </ul>
     </div>
 
-    <form class="contact-form" id="contactForm" data-lang={lang} novalidate
-      action="https://formsubmit.co/kimauraallen@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="Nueva consulta — Kimaura Allen Events">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+    <form class="contact-form" id="contactForm" data-lang={lang} novalidate>
+      <input type="hidden" name="access_key" value="1174c461-4006-4861-af7e-9c9fb72d25ce">
+      <input type="hidden" name="subject" value="Nueva consulta — Kimaura Allen Events">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1">
 
       <p class="form-intro">{c.intro}</p>
 
@@ -321,6 +319,26 @@ const titleLines = c.title.split('\n');
   .submit-btn:hover { opacity: 0.88; }
   .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
+  .form-success {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--deep-earth);
+    text-align: center;
+    padding: 3rem 1rem;
+    line-height: 1.6;
+  }
+
+  .form-send-error {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #b8705a;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
   @media (max-width: 900px) {
     .contact-inner { padding: 0 24px; grid-template-columns: 1fr; gap: 3.5rem; }
     .form-row { grid-template-columns: 1fr; }
@@ -370,21 +388,47 @@ const titleLines = c.title.split('\n');
     input?.addEventListener('input', () => clearError(inputId, errId));
   });
 
-  form?.addEventListener('submit', (e) => {
-    let valid = true;
+  const copy = {
+    es: { sending: 'Enviando…', success: '¡Gracias! Nos pondremos en contacto pronto.', error: 'Algo salió mal. Por favor intenta de nuevo.' },
+    en: { sending: 'Sending…',  success: 'Thank you! We\'ll be in touch soon.',          error: 'Something went wrong. Please try again.' },
+  }[lang];
 
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    let valid = true;
     required.forEach(({ inputId, errId }) => {
       const input = document.getElementById(inputId) as HTMLInputElement | HTMLTextAreaElement;
       const err   = document.getElementById(errId);
-      const msg   = getError(input);
-      if (msg) {
+      const errMsg = getError(input);
+      if (errMsg) {
         input.classList.add('has-error');
-        if (err) err.textContent = msg;
+        if (err) err.textContent = errMsg;
         valid = false;
       }
     });
+    if (!valid) return;
 
-    if (!valid) { e.preventDefault(); return; }
-    if (btn) { btn.disabled = true; btn.textContent = '…'; }
+    if (btn) { btn.disabled = true; btn.textContent = copy.sending; }
+
+    try {
+      const res  = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(form),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        form.innerHTML = `<p class="form-success">${copy.success}</p>`;
+      } else {
+        throw new Error();
+      }
+    } catch {
+      if (btn) { btn.disabled = false; btn.textContent = lang === 'es' ? 'Enviar solicitud' : 'Send inquiry'; }
+      const errEl = document.createElement('p');
+      errEl.className = 'form-send-error';
+      errEl.textContent = copy.error;
+      form.appendChild(errEl);
+    }
   });
 </script>
