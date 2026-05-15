@@ -1,5 +1,46 @@
 ---
+interface Props { lang?: 'es' | 'en' }
+const { lang = 'es' } = Astro.props;
+
+const copy = {
+  es: {
+    tagline: 'Bodas de destino de lujo y celebraciones íntimas en Costa Rica.',
+    nav: 'Navegar',
+    links: [
+      { href: '#home',         label: 'Inicio' },
+      { href: '#about',        label: 'La Fundadora' },
+      { href: '#services',     label: 'Servicios' },
+      { href: '#gallery',      label: 'Portfolio' },
+      { href: '#testimonials', label: 'Testimonios' },
+      { href: '#contact',      label: 'Contacto' },
+    ],
+    contactHeading: 'Contacto',
+    locationLabel: 'San José & Guanacaste,\nCosta Rica',
+    copyright: 'Pura Vida.',
+    sub: 'Luxury destination weddings · Costa Rica',
+  },
+  en: {
+    tagline: 'Luxury destination weddings & intimate celebrations in Costa Rica.',
+    nav: 'Navigate',
+    links: [
+      { href: '#home',         label: 'Home' },
+      { href: '#about',        label: 'About' },
+      { href: '#services',     label: 'Services' },
+      { href: '#gallery',      label: 'Portfolio' },
+      { href: '#testimonials', label: 'Testimonials' },
+      { href: '#contact',      label: 'Contact' },
+    ],
+    contactHeading: 'Contact',
+    locationLabel: 'San José & Guanacaste,\nCosta Rica',
+    copyright: 'Pura Vida.',
+    sub: 'Luxury destination weddings · Costa Rica',
+  },
+};
+
+const c = copy[lang];
 const year = new Date().getFullYear();
+const otherHref = lang === 'es' ? '/en' : '/';
+const otherLabel = lang === 'es' ? 'English version' : 'Versión en español';
 ---
 
 <footer class="site-footer">
@@ -7,9 +48,7 @@ const year = new Date().getFullYear();
 
     <div class="footer-brand">
       <p class="brand-name">Kimaura Allen Events</p>
-      <p class="brand-tagline">
-        Luxury destination weddings &amp; intimate celebrations in Costa Rica.
-      </p>
+      <p class="brand-tagline">{c.tagline}</p>
       <div class="brand-social">
         <a href="https://www.instagram.com/kimaurallen/" target="_blank" rel="noopener" aria-label="Instagram">
           <i class="fab fa-instagram"></i>
@@ -24,19 +63,14 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer-nav">
-      <h4 class="footer-heading">Navigate</h4>
+      <h4 class="footer-heading">{c.nav}</h4>
       <ul>
-        <li><a href="#home">Inicio</a></li>
-        <li><a href="#about">La Fundadora</a></li>
-        <li><a href="#services">Servicios</a></li>
-        <li><a href="#gallery">Portfolio</a></li>
-        <li><a href="#testimonials">Testimonios</a></li>
-        <li><a href="#contact">Contacto</a></li>
+        {c.links.map(l => <li><a href={l.href}>{l.label}</a></li>)}
       </ul>
     </div>
 
     <div class="footer-contact">
-      <h4 class="footer-heading">Contacto</h4>
+      <h4 class="footer-heading">{c.contactHeading}</h4>
       <ul>
         <li><a href="https://wa.me/50664708592" target="_blank" rel="noopener">WhatsApp: 6470 8592</a></li>
         <li><a href="mailto:info@kimauraallen.com">info@kimauraallen.com</a></li>
@@ -44,28 +78,26 @@ const year = new Date().getFullYear();
       </ul>
       <p class="footer-location">
         <span class="material-symbols-outlined loc-icon">location_on</span>
-        San José &amp; Guanacaste,<br/>Costa Rica
+        {c.locationLabel.split('\n').map((line, i) => (
+          <>{line}{i < c.locationLabel.split('\n').length - 1 && <br/>}</>
+        ))}
       </p>
+      <a href={otherHref} class="lang-switch">{otherLabel}</a>
     </div>
 
     <div class="footer-bottom">
-      <p class="footer-copy">&copy; {year} Kimaura Allen Events — Pura Vida.</p>
-      <p class="footer-made">Luxury destination weddings · Costa Rica</p>
+      <p class="footer-copy">&copy; {year} Kimaura Allen Events — {c.copyright}</p>
+      <p class="footer-sub">{c.sub}</p>
     </div>
 
   </div>
 </footer>
 
 <style>
-  .site-footer {
-    background: var(--surface-container);
-    padding: 5rem 0 0;
-  }
+  .site-footer { background: var(--surface-container); padding: 5rem 0 0; }
 
   .footer-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 80px;
+    max-width: 1280px; margin: 0 auto; padding: 0 80px;
     display: grid;
     grid-template-columns: 2.5fr 1fr 1.5fr;
     gap: 3rem 4rem;
@@ -73,151 +105,101 @@ const year = new Date().getFullYear();
     padding-top: 4rem;
   }
 
-  /* ── Brand ─────────────────────────────── */
   .brand-name {
     font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    font-weight: 400;
-    color: var(--deep-earth);
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
+    font-size: 1.35rem; font-weight: 400;
+    color: var(--deep-earth); margin-bottom: 0.75rem;
   }
 
   .brand-tagline {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 280px;
-    margin-bottom: 1.5rem;
-    opacity: 0.8;
+    font-size: 0.85rem; font-weight: 300;
+    color: var(--text-secondary); line-height: 1.6;
+    max-width: 280px; margin-bottom: 1.5rem; opacity: 0.8;
   }
 
-  .brand-social {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
+  .brand-social { display: flex; gap: 1rem; align-items: center; }
 
   .brand-social a {
-    font-size: 1.25rem;
-    color: var(--deep-earth);
-    opacity: 0.5;
-    text-decoration: none;
-    transition: opacity 0.25s ease;
-    line-height: 1;
-    display: flex;
-    align-items: center;
+    font-size: 1.25rem; color: var(--deep-earth); opacity: 0.5;
+    text-decoration: none; transition: opacity 0.25s ease;
+    line-height: 1; display: flex; align-items: center;
   }
 
-  .brand-social a:hover {
-    opacity: 1;
-    color: var(--deep-earth);
-  }
+  .brand-social a:hover { opacity: 1; color: var(--deep-earth); }
+  .brand-social .material-symbols-outlined { font-size: 1.25rem; }
 
-  .brand-social .material-symbols-outlined {
-    font-size: 1.25rem;
-  }
-
-  /* ── Nav / Contact ─────────────────────── */
   .footer-heading {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--deep-earth);
-    margin-bottom: 1.25rem;
+    font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--deep-earth); margin-bottom: 1.25rem;
   }
 
   .footer-nav ul,
   .footer-contact ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    list-style: none; padding: 0; margin: 0 0 1.5rem;
+    display: flex; flex-direction: column; gap: 0.75rem;
   }
 
   .footer-nav a,
   .footer-contact a {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 300;
-    color: var(--text-secondary);
-    opacity: 0.8;
+    font-size: 0.875rem; font-weight: 300;
+    color: var(--text-secondary); opacity: 0.8;
     text-decoration: none;
     transition: color 0.25s ease, opacity 0.25s ease;
   }
 
   .footer-nav a:hover,
-  .footer-contact a:hover {
-    color: var(--primary);
-    opacity: 1;
-  }
+  .footer-contact a:hover { color: var(--primary); opacity: 1; }
 
   .footer-location {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 300;
-    color: var(--text-secondary);
-    opacity: 0.7;
-    line-height: 1.7;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.35rem;
+    font-size: 0.8rem; font-weight: 300;
+    color: var(--text-secondary); opacity: 0.7; line-height: 1.7;
+    display: flex; align-items: flex-start; gap: 0.35rem;
+    margin-bottom: 1.25rem;
   }
 
-  .loc-icon {
-    font-size: 1rem;
-    margin-top: 0.1rem;
-    flex-shrink: 0;
+  .loc-icon { font-size: 1rem; margin-top: 0.1rem; flex-shrink: 0; }
+
+  .lang-switch {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--warm-taupe);
+    text-decoration: none;
+    border-bottom: 1px solid var(--outline-variant);
+    padding-bottom: 2px;
+    transition: color 0.25s ease, border-color 0.25s ease;
   }
 
-  /* ── Bottom ────────────────────────────── */
+  .lang-switch:hover { color: var(--primary); border-color: var(--primary); }
+
   .footer-bottom {
     grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; justify-content: space-between; align-items: center;
     padding: 1.75rem 0;
-    border-top: 1px solid rgba(215, 194, 186, 0.3);
+    border-top: 1px solid rgba(215,194,186,0.3);
     margin-top: 2rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    flex-wrap: wrap; gap: 0.5rem;
   }
 
   .footer-copy,
-  .footer-made {
+  .footer-sub {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: var(--deep-earth);
-    opacity: 0.5;
-    margin: 0;
+    font-size: 0.75rem; font-weight: 400;
+    color: var(--deep-earth); opacity: 0.5; margin: 0;
   }
 
-  /* ── Responsive ────────────────────────── */
   @media (max-width: 900px) {
-    .footer-inner {
-      padding: 2rem 24px 0;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .footer-brand {
-      grid-column: 1 / -1;
-    }
-
-    .footer-bottom {
-      grid-column: 1 / -1;
-    }
+    .footer-inner { padding: 2rem 24px 0; grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-bottom { grid-column: 1 / -1; }
   }
 
   @media (max-width: 540px) {
-    .footer-inner {
-      grid-template-columns: 1fr;
-    }
+    .footer-inner { grid-template-columns: 1fr; }
   }
 </style>

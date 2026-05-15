@@ -1,20 +1,48 @@
 ---
+interface Props { lang?: 'es' | 'en' }
+const { lang = 'es' } = Astro.props;
+
+const copy = {
+  es: {
+    links: [
+      { href: '#about',        label: 'La Fundadora' },
+      { href: '#services',     label: 'Servicios' },
+      { href: '#gallery',      label: 'Portfolio' },
+      { href: '#testimonials', label: 'Testimonios' },
+    ],
+    cta: 'Agenda tu experiencia',
+  },
+  en: {
+    links: [
+      { href: '#about',        label: 'About' },
+      { href: '#services',     label: 'Services' },
+      { href: '#gallery',      label: 'Portfolio' },
+      { href: '#testimonials', label: 'Testimonials' },
+    ],
+    cta: 'Plan your experience',
+  },
+};
+
+const c = copy[lang];
+const otherLang = lang === 'es' ? 'en' : 'es';
+const otherHref = lang === 'es' ? '/en' : '/';
+const otherLabel = lang === 'es' ? 'EN' : 'ES';
 ---
 
 <header class="site-header" id="site-header">
   <div class="header-inner">
-    <a href="#home" class="brand">Kimaura Allen Events</a>
+    <a href={lang === 'es' ? '/#home' : '/en#home'} class="brand">Kimaura Allen Events</a>
 
-    <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
 
     <nav class="nav" id="main-nav" role="navigation">
-      <a href="#about"  class="nav-link">La Fundadora</a>
-      <a href="#services" class="nav-link">Servicios</a>
-      <a href="#gallery" class="nav-link">Portfolio</a>
-      <a href="#testimonials" class="nav-link">Testimonios</a>
-      <a href="#contact" class="nav-cta">Agenda tu experiencia</a>
+      {c.links.map(l => (
+        <a href={l.href} class="nav-link">{l.label}</a>
+      ))}
+      <a href="#contact" class="nav-cta">{c.cta}</a>
+      <a href={otherHref} class="nav-lang">{otherLabel}</a>
     </nav>
   </div>
 </header>
@@ -22,9 +50,7 @@
 <style>
   .site-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 100;
     padding: 1.5rem 0;
     transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
@@ -53,7 +79,6 @@
     font-weight: 400;
     color: var(--primary);
     text-decoration: none;
-    letter-spacing: 0.01em;
     white-space: nowrap;
   }
 
@@ -75,9 +100,7 @@
     white-space: nowrap;
   }
 
-  .nav-link:hover {
-    color: var(--primary);
-  }
+  .nav-link:hover { color: var(--primary); }
 
   .nav-cta {
     font-family: 'Montserrat', sans-serif;
@@ -93,9 +116,24 @@
     white-space: nowrap;
   }
 
-  .nav-cta:hover {
-    opacity: 0.85;
-    color: var(--soft-blush);
+  .nav-cta:hover { opacity: 0.85; color: var(--soft-blush); }
+
+  .nav-lang {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm-taupe);
+    text-decoration: none;
+    border: 1px solid var(--outline-variant);
+    padding: 0.35rem 0.6rem;
+    transition: all 0.25s ease;
+  }
+
+  .nav-lang:hover {
+    color: var(--primary);
+    border-color: var(--primary);
   }
 
   .hamburger {
@@ -123,13 +161,9 @@
   .hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
   @media (max-width: 900px) {
-    .header-inner {
-      padding: 0 24px;
-    }
+    .header-inner { padding: 0 24px; }
 
-    .hamburger {
-      display: flex;
-    }
+    .hamburger { display: flex; }
 
     .nav {
       position: fixed;
@@ -143,33 +177,22 @@
       transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
     }
 
-    .nav.is-open {
-      transform: translateX(0);
-    }
+    .nav.is-open { transform: translateX(0); }
 
-    .nav-link {
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-    }
-
-    .nav-cta {
-      font-size: 0.8rem;
-      padding: 0.9rem 2.5rem;
-    }
+    .nav-link  { font-size: 0.85rem; letter-spacing: 0.15em; }
+    .nav-cta   { font-size: 0.8rem; padding: 0.9rem 2.5rem; }
   }
 </style>
 
 <script>
-  const header   = document.getElementById('site-header')!;
+  const header    = document.getElementById('site-header')!;
   const hamburger = document.getElementById('hamburger')!;
-  const nav      = document.getElementById('main-nav')!;
+  const nav       = document.getElementById('main-nav')!;
 
-  // Scroll state
   window.addEventListener('scroll', () => {
     header.classList.toggle('is-scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  // Mobile menu
   hamburger.addEventListener('click', () => {
     const open = hamburger.classList.toggle('is-open');
     nav.classList.toggle('is-open', open);
@@ -177,8 +200,7 @@
     document.body.style.overflow = open ? 'hidden' : '';
   });
 
-  // Close on link click
-  nav.querySelectorAll('a').forEach(link => {
+  nav.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('is-open');
       nav.classList.remove('is-open');
@@ -187,7 +209,6 @@
     });
   });
 
-  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       e.preventDefault();

@@ -1,32 +1,38 @@
 ---
-const testimonials = [
-  {
-    quote: "Kimaura no solo organizó nuestra boda, capturó nuestra esencia. Cada detalle se sintió como un reflejo de nosotros mismos en el rincón más hermoso del mundo.",
-    name: "Sofia & Marc",
-    venue: "Hacienda Pinilla, Guanacaste"
+interface Props { lang?: 'es' | 'en' }
+const { lang = 'es' } = Astro.props;
+
+const copy = {
+  es: {
+    eyebrow: 'Testimonios',
+    testimonials: [
+      { quote: 'Kimaura no solo organizó nuestra boda, capturó nuestra esencia. Cada detalle se sintió como un reflejo de nosotros mismos en el rincón más hermoso del mundo.', name: 'Sofia & Marc', venue: 'Hacienda Pinilla, Guanacaste' },
+      { quote: 'Queríamos algo íntimo, auténtico y completamente nuestro. Kimaura lo entendió desde la primera conversación y lo convirtió en algo más hermoso de lo que imaginamos.', name: 'Valentina & James', venue: 'Four Seasons Papagayo, Costa Rica' },
+      { quote: 'Organizar una boda destino desde el exterior parecía imposible. Kimaura no solo lo hizo posible — lo hizo perfecto. Nunca nos sentimos solos en el proceso.', name: 'Camila & David', venue: 'Playa Conchal, Guanacaste' },
+    ],
   },
-  {
-    quote: "Queríamos algo íntimo, auténtico y completamente nuestro. Kimaura lo entendió desde la primera conversación y lo convirtió en algo más hermoso de lo que imaginamos.",
-    name: "Valentina & James",
-    venue: "Four Seasons Papagayo, Costa Rica"
+  en: {
+    eyebrow: 'Testimonials',
+    testimonials: [
+      { quote: 'Kimaura didn\'t just plan our wedding — she captured our essence. Every detail felt like a reflection of who we are, in the most beautiful corner of the world.', name: 'Sofia & Marc', venue: 'Hacienda Pinilla, Guanacaste' },
+      { quote: 'We wanted something intimate, authentic, and completely ours. Kimaura understood that from the very first conversation and turned it into something more beautiful than we imagined.', name: 'Valentina & James', venue: 'Four Seasons Papagayo, Costa Rica' },
+      { quote: 'Planning a destination wedding from abroad seemed impossible. Kimaura didn\'t just make it possible — she made it perfect. We never felt alone throughout the process.', name: 'Camila & David', venue: 'Playa Conchal, Guanacaste' },
+    ],
   },
-  {
-    quote: "Organizar una boda destino desde el exterior parecía imposible. Kimaura no solo lo hizo posible — lo hizo perfecto. Nunca nos sentimos solos en el proceso.",
-    name: "Camila & David",
-    venue: "Playa Conchal, Guanacaste"
-  }
-];
+};
+
+const c = copy[lang];
 ---
 
 <section id="testimonials" class="testimonials">
   <div class="testimonials-inner">
 
     <div class="testi-header">
-      <span class="section-eyebrow">Testimonios</span>
+      <span class="section-eyebrow">{c.eyebrow}</span>
     </div>
 
-    <div class="testi-track" id="testi-track">
-      {testimonials.map((t, i) => (
+    <div class="testi-track">
+      {c.testimonials.map((t, i) => (
         <div class={`testi-slide ${i === 0 ? 'is-active' : ''}`} data-index={i}>
           <div class="quote-mark">"</div>
           <blockquote class="quote-text">{t.quote}</blockquote>
@@ -39,12 +45,8 @@ const testimonials = [
     </div>
 
     <nav class="testi-nav" aria-label="Testimonios">
-      {testimonials.map((t, i) => (
-        <button
-          class={`testi-dot ${i === 0 ? 'is-active' : ''}`}
-          data-i={i}
-          aria-label={`Testimonio de ${t.name}`}
-        ></button>
+      {c.testimonials.map((t, i) => (
+        <button class={`testi-dot ${i === 0 ? 'is-active' : ''}`} data-i={i} aria-label={t.name}></button>
       ))}
     </nav>
 
@@ -54,21 +56,19 @@ const testimonials = [
 <style>
   .testimonials {
     padding: 8rem 0;
-    background: rgba(244, 219, 216, 0.2);
+    background: rgba(244,219,216,0.2);
     position: relative;
     overflow: hidden;
   }
 
-  /* Subtle decorative element */
   .testimonials::before {
     content: '\201C';
     position: absolute;
-    top: -2rem;
-    left: 50%;
+    top: -2rem; left: 50%;
     transform: translateX(-50%);
     font-family: 'Playfair Display', serif;
     font-size: 20rem;
-    color: rgba(191, 160, 156, 0.08);
+    color: rgba(191,160,156,0.08);
     line-height: 1;
     pointer-events: none;
     user-select: none;
@@ -83,9 +83,7 @@ const testimonials = [
     z-index: 1;
   }
 
-  .testi-header {
-    margin-bottom: 3rem;
-  }
+  .testi-header { margin-bottom: 3rem; }
 
   .section-eyebrow {
     font-family: 'Montserrat', sans-serif;
@@ -96,7 +94,6 @@ const testimonials = [
     color: var(--warm-taupe);
   }
 
-  /* ── Slider ────────────────────────────── */
   .testi-track {
     position: relative;
     min-height: 220px;
@@ -107,12 +104,10 @@ const testimonials = [
     display: none;
     flex-direction: column;
     align-items: center;
-    animation: slideIn 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: slideIn 0.55s cubic-bezier(0.25,0.46,0.45,0.94) both;
   }
 
-  .testi-slide.is-active {
-    display: flex;
-  }
+  .testi-slide.is-active { display: flex; }
 
   @keyframes slideIn {
     from { opacity: 0; transform: translateY(16px); }
@@ -140,11 +135,7 @@ const testimonials = [
     max-width: 680px;
   }
 
-  .quote-footer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
+  .quote-footer { display: flex; flex-direction: column; gap: 0.3rem; }
 
   .quote-name {
     font-family: 'Montserrat', sans-serif;
@@ -164,22 +155,14 @@ const testimonials = [
     font-style: italic;
   }
 
-  /* ── Dots ──────────────────────────────── */
-  .testi-nav {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
-  }
+  .testi-nav { display: flex; justify-content: center; gap: 0.75rem; margin-top: 0.5rem; }
 
   .testi-dot {
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     border: 1px solid var(--warm-taupe);
     background: transparent;
-    padding: 0;
-    cursor: pointer;
+    padding: 0; cursor: pointer;
     transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
   }
 
@@ -189,19 +172,10 @@ const testimonials = [
     transform: scale(1.3);
   }
 
-  /* ── Responsive ────────────────────────── */
   @media (max-width: 900px) {
-    .testimonials-inner {
-      padding: 0 24px;
-    }
-
-    .testi-track {
-      min-height: 280px;
-    }
-
-    .quote-text {
-      font-size: 1.25rem;
-    }
+    .testimonials-inner { padding: 0 24px; }
+    .testi-track { min-height: 280px; }
+    .quote-text { font-size: 1.25rem; }
   }
 </style>
 
@@ -219,16 +193,10 @@ const testimonials = [
     dots[current].classList.add('is-active');
   }
 
-  function startTimer() {
-    timer = setInterval(() => go(current + 1), 7000);
-  }
+  function startTimer() { timer = setInterval(() => go(current + 1), 7000); }
 
   dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      clearInterval(timer);
-      go(i);
-      startTimer();
-    });
+    dot.addEventListener('click', () => { clearInterval(timer); go(i); startTimer(); });
   });
 
   startTimer();

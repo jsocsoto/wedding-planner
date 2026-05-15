@@ -1,11 +1,32 @@
 ---
+interface Props { lang?: 'es' | 'en' }
+const { lang = 'es' } = Astro.props;
+
+const copy = {
+  es: {
+    eyebrow: 'Costa Rica · Destination Weddings',
+    title:   'Experiencias que\ncuentan tu historia.',
+    sub:     'Bodas de lujo en destinos paradisíacos y celebraciones personalizadas en Costa Rica.',
+    cta1:    'Agenda tu experiencia',
+    cta2:    'Explorar servicios',
+  },
+  en: {
+    eyebrow: 'Costa Rica · Destination Weddings',
+    title:   'Experiences that\ntell your story.',
+    sub:     'Luxury weddings in paradise destinations and personalized celebrations in Costa Rica.',
+    cta1:    'Plan your experience',
+    cta2:    'Explore services',
+  },
+};
+
+const c = copy[lang];
 ---
 
 <section id="home" class="hero">
   <div class="hero-media">
     <img
       src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1920&q=90"
-      alt="Boda de lujo en Costa Rica"
+      alt="Luxury wedding in Costa Rica"
       class="hero-img"
       fetchpriority="high"
     />
@@ -15,17 +36,17 @@
   <div class="hero-body">
     <div class="hero-eyebrow">
       <span class="eyebrow-line"></span>
-      <span class="eyebrow-text">Costa Rica · Destination Weddings</span>
+      <span class="eyebrow-text">{c.eyebrow}</span>
     </div>
     <h1 class="hero-title">
-      Experiencias que<br/>cuentan tu historia.
+      {c.title.split('\n').map((line, i) => (
+        <>{line}{i < c.title.split('\n').length - 1 && <br/>}</>
+      ))}
     </h1>
-    <p class="hero-sub">
-      Bodas de lujo en destinos paradisíacos y celebraciones personalizadas en Costa Rica.
-    </p>
+    <p class="hero-sub">{c.sub}</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-fill">Agenda tu experiencia</a>
-      <a href="#services" class="btn-outline">Explorar servicios</a>
+      <a href="#contact" class="btn-fill">{c.cta1}</a>
+      <a href="#services" class="btn-outline">{c.cta2}</a>
     </div>
   </div>
 
@@ -45,7 +66,6 @@
     overflow: hidden;
   }
 
-  /* ── Media ─────────────────────────────── */
   .hero-media {
     position: absolute;
     inset: 0;
@@ -73,7 +93,6 @@
       linear-gradient(to top,    rgba(28, 16, 10, 0.45) 0%, transparent 50%);
   }
 
-  /* ── Body ──────────────────────────────── */
   .hero-body {
     position: relative;
     z-index: 1;
@@ -154,10 +173,7 @@
     transition: opacity 0.25s ease;
   }
 
-  .btn-fill:hover {
-    opacity: 0.88;
-    color: var(--soft-blush);
-  }
+  .btn-fill:hover { opacity: 0.88; color: var(--soft-blush); }
 
   .btn-outline {
     display: inline-block;
@@ -181,7 +197,6 @@
     color: #fdf8f6;
   }
 
-  /* ── Scroll indicator ──────────────────── */
   .hero-scroll {
     position: absolute;
     bottom: 2.5rem;
@@ -217,28 +232,11 @@
     writing-mode: vertical-rl;
   }
 
-  /* ── Responsive ────────────────────────── */
   @media (max-width: 900px) {
-    .hero-body {
-      padding: 0 24px;
-    }
-
-    .hero-scroll {
-      left: 24px;
-    }
-
-    .hero-title {
-      font-size: clamp(2.25rem, 9vw, 3.25rem);
-    }
-
-    .hero-actions {
-      flex-direction: column;
-      gap: 0.75rem;
-      max-width: 320px;
-    }
-
-    .btn-fill, .btn-outline {
-      text-align: center;
-    }
+    .hero-body, .hero-scroll { padding: 0 24px; }
+    .hero-scroll { left: 24px; }
+    .hero-title { font-size: clamp(2.25rem, 9vw, 3.25rem); }
+    .hero-actions { flex-direction: column; gap: 0.75rem; max-width: 320px; }
+    .btn-fill, .btn-outline { text-align: center; }
   }
 </style>

@@ -1,125 +1,90 @@
 ---
-const images = [
-  {
-    src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1400&q=85',
-    alt: 'Ceremonia íntima frente al océano',
-    pos: 'center 40%',
-    label: 'Playa Sámara, Guanacaste'
+interface Props { lang?: 'es' | 'en' }
+const { lang = 'es' } = Astro.props;
+
+const copy = {
+  es: {
+    eyebrow: 'Portfolio',
+    title:   'Historias Inolvidables',
+    cta:     'Ver todas las historias →',
+    quote:   '"Cada celebración debe contar una historia real."',
   },
-  {
-    src: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=900&q=85',
-    alt: 'Pareja en el atardecer tropical',
-    pos: 'center top',
-    label: 'Hacienda Pinilla'
+  en: {
+    eyebrow: 'Portfolio',
+    title:   'Unforgettable Stories',
+    cta:     'See all stories →',
+    quote:   '"Every celebration should tell a real story."',
   },
-  {
-    src: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=900&q=85',
-    alt: 'Detalles florales de la ceremonia',
-    pos: 'center',
-    label: 'Flores tropicales'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=85',
-    alt: 'Mesa de recepción al aire libre',
-    pos: 'center 60%',
-    label: 'Peninsula Papagayo'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=900&q=85',
-    alt: 'Momento romántico entre los novios',
-    pos: 'center top',
-    label: 'Manuel Antonio'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1200&q=85',
-    alt: 'Venue tropical de lujo',
-    pos: 'center',
-    label: 'Playa Conchal'
-  }
-];
+};
+
+const c = copy[lang];
 ---
 
 <section id="gallery" class="portfolio">
   <div class="portfolio-inner">
 
     <header class="portfolio-header">
-      <div class="header-left">
-        <span class="section-eyebrow">Portfolio</span>
-        <h2 class="section-title">Historias Inolvidables</h2>
+      <div>
+        <span class="section-eyebrow">{c.eyebrow}</span>
+        <h2 class="section-title">{c.title}</h2>
       </div>
-      <a href="#contact" class="view-all">Ver todas las historias →</a>
+      <a href="#contact" class="view-all">{c.cta}</a>
     </header>
 
-    <!-- Asymmetric grid -->
     <div class="grid-layout">
 
-      <!-- Row 1 -->
       <div class="cell cell-a">
         <div class="img-wrap">
-          <img src={images[0].src} alt={images[0].alt}
-               style={`object-position: ${images[0].pos}`} loading="lazy" />
-          <div class="img-overlay">
-            <span class="img-label">{images[0].label}</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1400&q=85"
+               alt="Intimate ocean ceremony" style="object-position:center 40%" loading="lazy" />
+          <div class="img-overlay"><span class="img-label">Playa Sámara, Guanacaste</span></div>
         </div>
       </div>
 
       <div class="cell cell-b">
         <div class="img-wrap">
-          <img src={images[1].src} alt={images[1].alt}
-               style={`object-position: ${images[1].pos}`} loading="lazy" />
-          <div class="img-overlay">
-            <span class="img-label">{images[1].label}</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=900&q=85"
+               alt="Sunset couple" style="object-position:center top" loading="lazy" />
+          <div class="img-overlay"><span class="img-label">Hacienda Pinilla</span></div>
         </div>
       </div>
 
       <div class="cell cell-c">
         <div class="img-wrap">
-          <img src={images[2].src} alt={images[2].alt}
-               style={`object-position: ${images[2].pos}`} loading="lazy" />
-          <div class="img-overlay">
-            <span class="img-label">{images[2].label}</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=900&q=85"
+               alt="Floral details" style="object-position:center" loading="lazy" />
+          <div class="img-overlay"><span class="img-label">Flores tropicales</span></div>
         </div>
       </div>
 
-      <!-- Row 2 -->
       <div class="cell cell-d">
         <div class="img-wrap">
-          <img src={images[3].src} alt={images[3].alt}
-               style={`object-position: ${images[3].pos}`} loading="lazy" />
-          <div class="img-overlay">
-            <span class="img-label">{images[3].label}</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=85"
+               alt="Elegant table setting" style="object-position:center 60%" loading="lazy" />
+          <div class="img-overlay"><span class="img-label">Peninsula Papagayo</span></div>
+        </div>
+      </div>
+
+      <div class="cell cell-quote">
+        <div class="quote-block">
+          <p class="quote-text">{c.quote}</p>
+          <span class="quote-attr">— Kimaura Allen</span>
         </div>
       </div>
 
       <div class="cell cell-e">
         <div class="img-wrap">
-          <img src={images[4].src} alt={images[4].alt}
-               style={`object-position: ${images[4].pos}`} loading="lazy" />
-          <div class="img-overlay">
-            <span class="img-label">{images[4].label}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pull-quote block -->
-      <div class="cell cell-quote">
-        <div class="quote-block">
-          <p class="quote-text">"Cada celebración debe<br/>contar una historia real."</p>
-          <span class="quote-attr">— Kimaura Allen</span>
+          <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=900&q=85"
+               alt="Romantic couple moment" style="object-position:center top" loading="lazy" />
+          <div class="img-overlay"><span class="img-label">Manuel Antonio</span></div>
         </div>
       </div>
 
       <div class="cell cell-f">
         <div class="img-wrap">
-          <img src={images[5].src} alt={images[5].alt}
-               style={`object-position: ${images[5].pos}`} loading="lazy" />
-          <div class="img-overlay">
-            <span class="img-label">{images[5].label}</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1200&q=85"
+               alt="Luxury tropical venue" style="object-position:center" loading="lazy" />
+          <div class="img-overlay"><span class="img-label">Playa Conchal</span></div>
         </div>
       </div>
 
@@ -128,17 +93,10 @@ const images = [
 </section>
 
 <style>
-  .portfolio {
-    padding: 8rem 0;
-  }
+  .portfolio { padding: 8rem 0; }
 
-  .portfolio-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 80px;
-  }
+  .portfolio-inner { max-width: 1280px; margin: 0 auto; padding: 0 80px; }
 
-  /* ── Header ────────────────────────────── */
   .portfolio-header {
     display: flex;
     justify-content: space-between;
@@ -165,7 +123,6 @@ const images = [
     font-weight: 400;
     color: var(--primary);
     margin: 0;
-    line-height: 1.15;
   }
 
   .view-all {
@@ -178,79 +135,58 @@ const images = [
     text-decoration: none;
     border-bottom: 1px solid var(--deep-earth);
     padding-bottom: 2px;
-    transition: opacity 0.25s ease;
     white-space: nowrap;
     align-self: flex-end;
     margin-bottom: 2px;
+    transition: opacity 0.25s ease;
   }
 
-  .view-all:hover {
-    opacity: 0.6;
-    color: var(--deep-earth);
-  }
+  .view-all:hover { opacity: 0.6; color: var(--deep-earth); }
 
   /* ── Grid ──────────────────────────────── */
   .grid-layout {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: auto;
     gap: 0.75rem;
   }
 
-  /* Row 1 */
-  .cell-a { grid-column: 1 / 8;  grid-row: 1; }
-  .cell-b { grid-column: 8 / 13; grid-row: 1; }
-  .cell-c { grid-column: 1 / 5;  grid-row: 2; margin-top: -6rem; }
-
-  /* Row 2 */
+  .cell-a { grid-column: 1 / 8;   grid-row: 1; }
+  .cell-b { grid-column: 8 / 13;  grid-row: 1; }
+  .cell-c { grid-column: 1 / 5;   grid-row: 2; margin-top: -6rem; }
   .cell-d { grid-column: 5 / 10;  grid-row: 2; }
-  .cell-e { grid-column: 10 / 13; grid-row: 2; margin-top: -4rem; }
+  .cell-quote { grid-column: 10 / 13; grid-row: 2; margin-top: -4rem; }
+  .cell-e { grid-column: 1 / 5;   grid-row: 3; }
+  .cell-f { grid-column: 5 / 13;  grid-row: 3; }
 
-  /* Row 3 */
-  .cell-quote { grid-column: 1 / 5;  grid-row: 3; }
-  .cell-f     { grid-column: 5 / 13; grid-row: 3; }
-
-  /* ── Image ─────────────────────────────── */
   .cell-a .img-wrap { aspect-ratio: 16 / 10; }
   .cell-b .img-wrap { aspect-ratio: 3 / 4; }
   .cell-c .img-wrap { aspect-ratio: 3 / 4; }
   .cell-d .img-wrap { aspect-ratio: 4 / 3; }
-  .cell-e .img-wrap { aspect-ratio: 2 / 3; }
+  .cell-e .img-wrap { aspect-ratio: 1 / 1; }
   .cell-f .img-wrap { aspect-ratio: 16 / 7; }
 
-  .img-wrap {
-    position: relative;
-    overflow: hidden;
-  }
+  .img-wrap { position: relative; overflow: hidden; }
 
   .img-wrap img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     display: block;
     transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     filter: saturate(0.92);
   }
 
-  .img-wrap:hover img {
-    transform: scale(1.05);
-    filter: saturate(1.05);
-  }
+  .img-wrap:hover img { transform: scale(1.05); filter: saturate(1.05); }
 
   .img-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(28, 16, 10, 0.45) 0%, transparent 50%);
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(28,16,10,0.45) 0%, transparent 50%);
     opacity: 0;
     transition: opacity 0.4s ease;
-    display: flex;
-    align-items: flex-end;
+    display: flex; align-items: flex-end;
     padding: 1.25rem;
   }
 
-  .img-wrap:hover .img-overlay {
-    opacity: 1;
-  }
+  .img-wrap:hover .img-overlay { opacity: 1; }
 
   .img-label {
     font-family: 'Montserrat', sans-serif;
@@ -258,27 +194,27 @@ const images = [
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(244, 219, 216, 0.9);
+    color: rgba(244,219,216,0.9);
   }
 
-  /* ── Quote block ───────────────────────── */
   .quote-block {
     background: var(--soft-blush);
     height: 100%;
+    min-height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2.5rem;
+    padding: 2rem;
   }
 
   .quote-text {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+    font-size: clamp(1rem, 1.4vw, 1.35rem);
     font-weight: 400;
     font-style: italic;
     color: var(--deep-earth);
-    line-height: 1.4;
-    margin-bottom: 1.25rem;
+    line-height: 1.45;
+    margin-bottom: 1rem;
   }
 
   .quote-attr {
@@ -292,22 +228,13 @@ const images = [
 
   /* ── Responsive ────────────────────────── */
   @media (max-width: 900px) {
-    .portfolio-inner {
-      padding: 0 24px;
-    }
+    .portfolio-inner { padding: 0 24px; }
 
-    .grid-layout {
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
-    }
+    .grid-layout { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
 
-    .cell-a { grid-column: 1 / 3; grid-row: auto; }
-    .cell-b,
-    .cell-c,
-    .cell-d,
-    .cell-e { grid-column: span 1; grid-row: auto; margin-top: 0; }
-    .cell-quote,
-    .cell-f { grid-column: 1 / 3; grid-row: auto; }
+    .cell-a  { grid-column: 1 / 3; grid-row: auto; }
+    .cell-b, .cell-c, .cell-d, .cell-e { grid-column: span 1; grid-row: auto; margin-top: 0; }
+    .cell-quote, .cell-f { grid-column: 1 / 3; grid-row: auto; margin-top: 0; }
 
     .cell-a .img-wrap,
     .cell-b .img-wrap,
@@ -316,25 +243,12 @@ const images = [
     .cell-e .img-wrap { aspect-ratio: 4 / 3; }
     .cell-f .img-wrap { aspect-ratio: 16 / 9; }
 
-    .quote-block {
-      aspect-ratio: unset;
-      padding: 2rem;
-    }
-
+    .quote-block { min-height: unset; padding: 2rem; }
     .img-overlay { opacity: 1; }
   }
 
   @media (max-width: 540px) {
-    .grid-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .cell-a,
-    .cell-b,
-    .cell-c,
-    .cell-d,
-    .cell-e,
-    .cell-quote,
-    .cell-f { grid-column: 1; }
+    .grid-layout { grid-template-columns: 1fr; }
+    .cell-a, .cell-b, .cell-c, .cell-d, .cell-e, .cell-quote, .cell-f { grid-column: 1; }
   }
 </style>

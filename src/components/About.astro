@@ -1,15 +1,51 @@
 ---
+interface Props { lang?: 'es' | 'en' }
+const { lang = 'es' } = Astro.props;
+
+const copy = {
+  es: {
+    eyebrow: 'Sobre mí',
+    headline: 'Creo en las bodas que se sienten auténticas, íntimas y profundamente significativas.',
+    body: [
+      'Soy Kimaura, la persona detrás de <em>Kimaura Allen Events</em> — una marca creada desde la pasión por diseñar experiencias elegantes, humanas y llenas de intención. Amo crear celebraciones que no solo se vean hermosas, sino que también se sientan cálidas, fluidas y emocionalmente conectadas.',
+      'Mi enfoque combina sensibilidad, organización y atención genuina hacia cada pareja y sus invitados. Creo profundamente en el poder de los detalles, en la hospitalidad y en crear ambientes donde las personas puedan sentirse presentes, felices y verdaderamente disfrutando el momento.',
+      'Inspirada por la belleza tropical de Costa Rica, el lujo sereno y las conexiones auténticas, mi propósito es transformar tus ideas en experiencias que realmente cuenten tu historia.',
+    ],
+    stats: [
+      { n: '10+', label: 'Años de experiencia' },
+      { n: '200+', label: 'Bodas realizadas' },
+      { n: '100%', label: 'Dedicación total' },
+    ],
+    cta: 'Empecemos a contar tu historia',
+  },
+  en: {
+    eyebrow: 'About me',
+    headline: 'I believe in weddings that feel authentic, intimate, and deeply meaningful.',
+    body: [
+      'I\'m Kimaura, the person behind <em>Kimaura Allen Events</em> — a brand born from a passion for designing elegant, human, and intentional experiences. I love creating celebrations that not only look beautiful, but also feel warm, fluid, and emotionally connected.',
+      'My approach combines sensitivity, organization, and genuine care for each couple and their guests. I deeply believe in the power of details, in hospitality, and in creating environments where people can feel present, joyful, and truly savoring the moment.',
+      'Inspired by the tropical beauty of Costa Rica, serene luxury, and authentic connections, my purpose is to transform your ideas into experiences that truly tell your story.',
+    ],
+    stats: [
+      { n: '10+', label: 'Years of experience' },
+      { n: '200+', label: 'Weddings planned' },
+      { n: '100%', label: 'Total dedication' },
+    ],
+    cta: 'Let\'s start telling your story',
+  },
+};
+
+const c = copy[lang];
 ---
 
 <section id="about" class="about">
   <div class="about-inner">
 
-    <!-- Columna foto -->
     <div class="photo-col">
       <div class="photo-frame">
         <img
           src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=900&q=85"
-          alt="Kimaura Allen, fundadora de Kimaura Allen Events"
+          alt="Kimaura Allen"
           class="about-img"
           loading="lazy"
         />
@@ -19,46 +55,28 @@
       </div>
     </div>
 
-    <!-- Columna texto -->
     <div class="text-col">
-      <span class="section-eyebrow">Sobre mí</span>
+      <span class="section-eyebrow">{c.eyebrow}</span>
+      <h2 class="about-headline">{c.headline}</h2>
 
-      <h2 class="about-headline">
-        Creo en las bodas que se sienten auténticas, íntimas y profundamente significativas.
-      </h2>
-
-      <p class="about-body">
-        Soy Kimaura, la persona detrás de <em>Kimaura Allen Events</em> — una marca creada desde la pasión por diseñar experiencias elegantes, humanas y llenas de intención. Amo crear celebraciones que no solo se vean hermosas, sino que también se sientan cálidas, fluidas y emocionalmente conectadas.
-      </p>
-
-      <p class="about-body">
-        Mi enfoque combina sensibilidad, organización y atención genuina hacia cada pareja y sus invitados. Creo profundamente en el poder de los detalles, en la hospitalidad y en crear ambientes donde las personas puedan sentirse presentes, felices y verdaderamente disfrutando el momento.
-      </p>
-
-      <p class="about-body">
-        Inspirada por la belleza tropical de Costa Rica, el lujo sereno y las conexiones auténticas, mi propósito es transformar tus ideas en experiencias que realmente cuenten tu historia.
-      </p>
+      {c.body.map(p => (
+        <p class="about-body" set:html={p} />
+      ))}
 
       <div class="about-stats">
-        <div class="stat">
-          <span class="stat-number">10+</span>
-          <span class="stat-label">Años de experiencia</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-number">200+</span>
-          <span class="stat-label">Bodas realizadas</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-number">100%</span>
-          <span class="stat-label">Dedicación total</span>
-        </div>
+        {c.stats.map((s, i) => (
+          <>
+            {i > 0 && <span class="stat-divider"></span>}
+            <div class="stat">
+              <span class="stat-number">{s.n}</span>
+              <span class="stat-label">{s.label}</span>
+            </div>
+          </>
+        ))}
       </div>
 
       <a href="#contact" class="about-cta">
-        Empecemos a contar tu historia
-        <span class="cta-arrow">→</span>
+        {c.cta} <span class="cta-arrow">→</span>
       </a>
     </div>
 
@@ -79,10 +97,7 @@
     align-items: center;
   }
 
-  /* ── Photo ─────────────────────────────── */
-  .photo-col {
-    position: relative;
-  }
+  .photo-col { position: relative; }
 
   .photo-frame {
     aspect-ratio: 4 / 5;
@@ -98,9 +113,7 @@
     transition: transform 0.8s ease;
   }
 
-  .photo-frame:hover .about-img {
-    transform: scale(1.03);
-  }
+  .photo-frame:hover .about-img { transform: scale(1.03); }
 
   .since-badge {
     position: absolute;
@@ -121,7 +134,6 @@
     margin: 0;
   }
 
-  /* ── Text ──────────────────────────────── */
   .section-eyebrow {
     display: block;
     font-family: 'Montserrat', sans-serif;
@@ -153,12 +165,8 @@
     margin-bottom: 1.1rem;
   }
 
-  .about-body em {
-    font-style: italic;
-    color: var(--deep-earth);
-  }
+  .about-body :global(em) { font-style: italic; color: var(--deep-earth); }
 
-  /* ── Stats ─────────────────────────────── */
   .about-stats {
     display: flex;
     align-items: center;
@@ -169,11 +177,7 @@
     border-bottom: 1px solid var(--outline-variant);
   }
 
-  .stat {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
+  .stat { display: flex; flex-direction: column; gap: 0.35rem; }
 
   .stat-number {
     font-family: 'Playfair Display', serif;
@@ -199,7 +203,6 @@
     flex-shrink: 0;
   }
 
-  /* ── CTA ────────────────────────────────── */
   .about-cta {
     display: inline-flex;
     align-items: center;
@@ -216,37 +219,14 @@
     transition: opacity 0.25s ease;
   }
 
-  .about-cta:hover {
-    opacity: 0.65;
-    color: var(--deep-earth);
-  }
+  .about-cta:hover { opacity: 0.65; color: var(--deep-earth); }
+  .about-cta:hover .cta-arrow { transform: translateX(4px); }
+  .cta-arrow { transition: transform 0.25s ease; }
 
-  .cta-arrow {
-    font-style: normal;
-    transition: transform 0.25s ease;
-  }
-
-  .about-cta:hover .cta-arrow {
-    transform: translateX(4px);
-  }
-
-  /* ── Responsive ────────────────────────── */
   @media (max-width: 900px) {
-    .about {
-      padding: 5rem 24px;
-    }
-
-    .about-inner {
-      grid-template-columns: 1fr;
-      gap: 4rem;
-    }
-
-    .since-badge {
-      right: 0;
-    }
-
-    .about-stats {
-      gap: 1.25rem;
-    }
+    .about { padding: 5rem 24px; }
+    .about-inner { grid-template-columns: 1fr; gap: 4rem; }
+    .since-badge { right: 0; }
+    .about-stats { gap: 1.25rem; }
   }
 </style>

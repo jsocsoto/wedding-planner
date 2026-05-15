@@ -1,85 +1,68 @@
 ---
-const services = [
-  {
-    icon: 'travel_explore',
-    tag: '01',
-    title: 'Destination Experiences',
-    description: 'Logística integral y visión creativa para parejas que sueñan con casarse en el paraíso tropical de Costa Rica. Cada destino, curado con intención.'
+interface Props { lang?: 'es' | 'en' }
+const { lang = 'es' } = Astro.props;
+
+const copy = {
+  es: {
+    eyebrow: 'Servicios',
+    title: 'Propuestas Exclusivas',
+    sub: 'Cada servicio está diseñado para sentirse curado, exclusivo y emocionalmente conectado — no solo logístico, sino verdaderamente tuyo.',
+    cta: 'Saber más',
+    services: [
+      { icon: 'travel_explore', tag: '01', title: 'Destination Experiences', desc: 'Logística integral y visión creativa para parejas que sueñan con casarse en el paraíso tropical de Costa Rica. Cada destino, curado con intención.' },
+      { icon: 'event_available', tag: '02', title: 'Full Planning', desc: 'Desde la primera reunión hasta el último detalle del día, te acompaño en cada paso para que solo tengas que estar presente y disfrutar.' },
+      { icon: 'concierge', tag: '03', title: 'Wedding Concierge', desc: 'Atención personalizada de alto nivel para tus invitados y anfitriones. Hospitalidad que convierte cada momento en una experiencia memorable.' },
+      { icon: 'favorite', tag: '04', title: 'Elopements', desc: 'Celebraciones íntimas, cargadas de significado, en locaciones secretas y lugares de ensueño. Solo tú, tu pareja y la belleza de Costa Rica.' },
+      { icon: 'lightbulb', tag: '05', title: 'Consultorías', desc: 'Asesoría estratégica y personalizada para parejas que buscan una guía experta en los momentos clave de su organización.', featured: true },
+    ],
   },
-  {
-    icon: 'event_available',
-    tag: '02',
-    title: 'Full Planning',
-    description: 'Desde la primera reunión hasta el último detalle del día, te acompaño en cada paso para que solo tengas que estar presente y disfrutar.'
+  en: {
+    eyebrow: 'Services',
+    title: 'Exclusive Offerings',
+    sub: 'Each service is designed to feel curated, exclusive, and emotionally connected — not just logistical, but truly yours.',
+    cta: 'Learn more',
+    services: [
+      { icon: 'travel_explore', tag: '01', title: 'Destination Experiences', desc: 'End-to-end logistics and creative vision for couples dreaming of marrying in the tropical paradise of Costa Rica. Every destination, curated with intention.' },
+      { icon: 'event_available', tag: '02', title: 'Full Planning', desc: 'From the first meeting to the last detail of the day, I accompany you every step of the way so you only need to be present and enjoy.' },
+      { icon: 'concierge', tag: '03', title: 'Wedding Concierge', desc: 'High-touch personalized service for your guests and hosts. Hospitality that turns every moment into an unforgettable experience.' },
+      { icon: 'favorite', tag: '04', title: 'Elopements', desc: 'Intimate, meaningful celebrations in secret locations and dreamy venues. Just you, your partner, and the beauty of Costa Rica.' },
+      { icon: 'lightbulb', tag: '05', title: 'Consultations', desc: 'Strategic and personalized guidance for couples seeking expert advice at key moments in their planning journey.', featured: true },
+    ],
   },
-  {
-    icon: 'concierge',
-    tag: '03',
-    title: 'Wedding Concierge',
-    description: 'Atención personalizada de alto nivel para tus invitados y anfitriones. Hospitalidad que convierte cada momento en una experiencia memorable.'
-  },
-  {
-    icon: 'favorite',
-    tag: '04',
-    title: 'Elopements',
-    description: 'Celebraciones íntimas, cargadas de significado, en locaciones secretas y lugares de ensueño. Solo tú, tu pareja y la belleza de Costa Rica.'
-  },
-  {
-    icon: 'lightbulb',
-    tag: '05',
-    title: 'Consultorías',
-    description: 'Asesoría estratégica y personalizada para parejas que buscan una guía experta en los momentos clave de su organización.',
-    featured: true
-  }
-];
+};
+
+const c = copy[lang];
 ---
 
 <section id="services" class="services">
   <div class="services-inner">
-
     <header class="section-header">
-      <span class="section-eyebrow">Servicios</span>
-      <h2 class="section-title">Propuestas Exclusivas</h2>
-      <p class="section-sub">
-        Cada servicio está diseñado para sentirse curado, exclusivo y emocionalmente conectado —
-        no solo logístico, sino verdaderamente tuyo.
-      </p>
+      <span class="section-eyebrow">{c.eyebrow}</span>
+      <h2 class="section-title">{c.title}</h2>
+      <p class="section-sub">{c.sub}</p>
     </header>
 
     <div class="services-grid">
-      {services.map((s) => (
+      {c.services.map((s) => (
         <article class={`service-card ${s.featured ? 'service-card--featured' : ''}`}>
           <div class="card-top">
             <span class="card-tag">{s.tag}</span>
-            <span class={`material-symbols-outlined card-icon ${s.featured ? 'card-icon--featured' : ''}`}>
-              {s.icon}
-            </span>
+            <span class={`material-symbols-outlined card-icon ${s.featured ? 'card-icon--featured' : ''}`}>{s.icon}</span>
           </div>
           <h3 class="card-title">{s.title}</h3>
-          <p class="card-desc">{s.description}</p>
-          <a href="#contact" class="card-link">
-            Saber más <span>→</span>
-          </a>
+          <p class="card-desc">{s.desc}</p>
+          <a href="#contact" class="card-link">{c.cta} <span>→</span></a>
         </article>
       ))}
     </div>
-
   </div>
 </section>
 
 <style>
-  .services {
-    padding: 8rem 0;
-    background: var(--surface-low);
-  }
+  .services { padding: 8rem 0; background: var(--surface-low); }
 
-  .services-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 80px;
-  }
+  .services-inner { max-width: 1280px; margin: 0 auto; padding: 0 80px; }
 
-  /* ── Header ────────────────────────────── */
   .section-header {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -116,20 +99,13 @@ const services = [
     margin: 0;
   }
 
-  /* ── Grid ──────────────────────────────── */
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5px;
-  }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
 
-  /* ── Card ──────────────────────────────── */
   .service-card {
     background: var(--surface);
     padding: 2.75rem;
     display: flex;
     flex-direction: column;
-    gap: 0;
     transition: background 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -138,9 +114,7 @@ const services = [
   .service-card::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     height: 2px;
     background: var(--deep-earth);
     transform: scaleX(0);
@@ -148,9 +122,7 @@ const services = [
     transition: transform 0.35s ease;
   }
 
-  .service-card:hover::after {
-    transform: scaleX(1);
-  }
+  .service-card:hover::after { transform: scaleX(1); }
 
   .service-card--featured {
     grid-column: span 2;
@@ -164,17 +136,9 @@ const services = [
   .service-card--featured .card-top,
   .service-card--featured .card-title,
   .service-card--featured .card-desc,
-  .service-card--featured .card-link {
-    flex-basis: 100%;
-  }
+  .service-card--featured .card-link { flex-basis: 100%; }
 
-  /* ── Card internals ────────────────────── */
-  .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.75rem;
-  }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.75rem; }
 
   .card-tag {
     font-family: 'Montserrat', sans-serif;
@@ -190,9 +154,7 @@ const services = [
     font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
   }
 
-  .card-icon--featured {
-    color: var(--deep-earth);
-  }
+  .card-icon--featured { color: var(--deep-earth); }
 
   .card-title {
     font-family: 'Playfair Display', serif;
@@ -203,9 +165,7 @@ const services = [
     line-height: 1.25;
   }
 
-  .service-card--featured .card-title {
-    color: var(--deep-earth);
-  }
+  .service-card--featured .card-title { color: var(--deep-earth); }
 
   .card-desc {
     font-family: 'Montserrat', sans-serif;
@@ -217,10 +177,7 @@ const services = [
     flex-grow: 1;
   }
 
-  .service-card--featured .card-desc {
-    color: var(--deep-earth);
-    opacity: 0.8;
-  }
+  .service-card--featured .card-desc { color: var(--deep-earth); opacity: 0.8; }
 
   .card-link {
     display: inline-flex;
@@ -238,36 +195,14 @@ const services = [
     transition: opacity 0.25s ease;
   }
 
-  .service-card:hover .card-link {
-    opacity: 1;
-  }
+  .service-card:hover .card-link { opacity: 1; }
+  .service-card--featured .card-link { opacity: 1; }
 
-  .service-card--featured .card-link {
-    opacity: 1;
-  }
-
-  /* ── Responsive ────────────────────────── */
   @media (max-width: 900px) {
-    .services-inner {
-      padding: 0 24px;
-    }
-
-    .section-header {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .services-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5px;
-    }
-
-    .service-card--featured {
-      grid-column: span 1;
-    }
-
-    .card-link {
-      opacity: 1;
-    }
+    .services-inner { padding: 0 24px; }
+    .section-header { grid-template-columns: 1fr; gap: 1rem; }
+    .services-grid { grid-template-columns: 1fr; gap: 1.5px; }
+    .service-card--featured { grid-column: span 1; }
+    .card-link { opacity: 1; }
   }
 </style>

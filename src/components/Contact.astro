@@ -1,20 +1,83 @@
 ---
+interface Props { lang?: 'es' | 'en' }
+const { lang = 'es' } = Astro.props;
+
+const copy = {
+  es: {
+    eyebrow:      'Contacto',
+    title:        'Escribamos tu\npróximo capítulo.',
+    avail:        'Actualmente aceptando celebraciones',
+    availYears:   '2026 – 2027',
+    intro:        'Cuéntanos sobre tu celebración y nos pondremos en contacto en las próximas 24 horas.',
+    fields: {
+      name:    'Nombre completo',
+      namePh:  'Tu nombre',
+      email:   'Correo electrónico',
+      emailPh: 'hola@ejemplo.com',
+      phone:   'WhatsApp / Teléfono',
+      phonePh: '+1 000 000 0000',
+      date:    'Fecha tentativa',
+      service: 'Tipo de celebración',
+      options: ['Destination Experience','Full Planning','Wedding Concierge','Elopement','Consultoría'],
+      msg:     'Tu visión',
+      msgPh:   'Cuéntanos sobre tu boda soñada, el destino que tienes en mente, el número de invitados…',
+    },
+    submit: 'Enviar solicitud',
+    channels: {
+      wa:    'WhatsApp',
+      email: 'Email',
+      ig:    'Instagram',
+      loc:   'Localización',
+    },
+  },
+  en: {
+    eyebrow:      'Contact',
+    title:        "Let's write your\nnext chapter.",
+    avail:        'Currently accepting celebrations for',
+    availYears:   '2026 – 2027',
+    intro:        'Tell us about your celebration and we\'ll be in touch within 24 hours.',
+    fields: {
+      name:    'Full name',
+      namePh:  'Your name',
+      email:   'Email address',
+      emailPh: 'hello@example.com',
+      phone:   'WhatsApp / Phone',
+      phonePh: '+1 000 000 0000',
+      date:    'Tentative date',
+      service: 'Type of celebration',
+      options: ['Destination Experience','Full Planning','Wedding Concierge','Elopement','Consultation'],
+      msg:     'Your vision',
+      msgPh:   'Tell us about your dream wedding, the destination you have in mind, your guest count…',
+    },
+    submit: 'Send inquiry',
+    channels: {
+      wa:    'WhatsApp',
+      email: 'Email',
+      ig:    'Instagram',
+      loc:   'Location',
+    },
+  },
+};
+
+const c = copy[lang];
+const titleLines = c.title.split('\n');
 ---
 
 <section id="contact" class="contact">
   <div class="contact-inner">
 
-    <!-- Left: info -->
     <div class="contact-info">
-      <span class="section-eyebrow">Contacto</span>
+      <span class="section-eyebrow">{c.eyebrow}</span>
 
       <h2 class="contact-title">
-        Escribamos tu<br/>próximo capítulo.
+        {titleLines.map((line, i) => (
+          <>{line}{i < titleLines.length - 1 && <br/>}</>
+        ))}
       </h2>
 
       <p class="contact-avail">
-        Actualmente aceptando celebraciones<br/>
-        <strong>2026 – 2027</strong>
+        {c.avail}<br/>
+        <strong>{c.availYears}</strong>
       </p>
 
       <ul class="contact-channels">
@@ -22,7 +85,7 @@
           <a href="https://wa.me/50664708592" target="_blank" rel="noopener" class="channel">
             <span class="material-symbols-outlined ch-icon">call</span>
             <span class="ch-body">
-              <span class="ch-label">WhatsApp</span>
+              <span class="ch-label">{c.channels.wa}</span>
               <span class="ch-value">6470 8592</span>
             </span>
           </a>
@@ -31,7 +94,7 @@
           <a href="mailto:info@kimauraallen.com" class="channel">
             <span class="material-symbols-outlined ch-icon">mail</span>
             <span class="ch-body">
-              <span class="ch-label">Email</span>
+              <span class="ch-label">{c.channels.email}</span>
               <span class="ch-value">info@kimauraallen.com</span>
             </span>
           </a>
@@ -40,7 +103,7 @@
           <a href="https://www.instagram.com/kimaurallen/" target="_blank" rel="noopener" class="channel">
             <span class="material-symbols-outlined ch-icon">photo_camera</span>
             <span class="ch-body">
-              <span class="ch-label">Instagram</span>
+              <span class="ch-label">{c.channels.ig}</span>
               <span class="ch-value">@kimaurallen</span>
             </span>
           </a>
@@ -48,100 +111,79 @@
         <li class="channel channel--plain">
           <span class="material-symbols-outlined ch-icon">location_on</span>
           <span class="ch-body">
-            <span class="ch-label">Localización</span>
+            <span class="ch-label">{c.channels.loc}</span>
             <span class="ch-value">San José &amp; Guanacaste, Costa Rica</span>
           </span>
         </li>
       </ul>
     </div>
 
-    <!-- Right: form -->
-    <form
-      class="contact-form"
-      id="contactForm"
-      action="https://formsubmit.co/kimauraallen@gmail.com"
-      method="POST"
-    >
+    <form class="contact-form" id="contactForm"
+      action="https://formsubmit.co/kimauraallen@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="Nueva consulta — Kimaura Allen Events">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
       <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
-      <p class="form-intro">
-        Cuéntanos sobre tu celebración y nos pondremos en contacto en las próximas 24 horas.
-      </p>
+      <p class="form-intro">{c.intro}</p>
 
       <div class="form-row">
         <div class="field">
-          <label class="field-label" for="f-name">Nombre completo</label>
-          <input id="f-name" type="text" name="name" class="field-input" placeholder="Tu nombre" required />
+          <label class="field-label" for="f-name">{c.fields.name}</label>
+          <input id="f-name" type="text" name="name" class="field-input" placeholder={c.fields.namePh} required />
         </div>
         <div class="field">
-          <label class="field-label" for="f-email">Correo electrónico</label>
-          <input id="f-email" type="email" name="email" class="field-input" placeholder="hola@ejemplo.com" required />
+          <label class="field-label" for="f-email">{c.fields.email}</label>
+          <input id="f-email" type="email" name="email" class="field-input" placeholder={c.fields.emailPh} required />
         </div>
       </div>
 
       <div class="form-row">
         <div class="field">
-          <label class="field-label" for="f-phone">WhatsApp / Teléfono</label>
-          <input id="f-phone" type="tel" name="phone" class="field-input" placeholder="+1 000 000 0000" />
+          <label class="field-label" for="f-phone">{c.fields.phone}</label>
+          <input id="f-phone" type="tel" name="phone" class="field-input" placeholder={c.fields.phonePh} />
         </div>
         <div class="field">
-          <label class="field-label" for="f-date">Fecha tentativa</label>
+          <label class="field-label" for="f-date">{c.fields.date}</label>
           <input id="f-date" type="date" name="date" class="field-input" />
         </div>
       </div>
 
       <div class="field">
-        <label class="field-label" for="f-service">Tipo de celebración</label>
+        <label class="field-label" for="f-service">{c.fields.service}</label>
         <select id="f-service" name="service" class="field-input field-select">
-          <option value="destination">Destination Experience</option>
-          <option value="full">Full Planning</option>
-          <option value="concierge">Wedding Concierge</option>
-          <option value="elopement">Elopement</option>
-          <option value="consultoria">Consultoría</option>
+          {c.fields.options.map(o => <option value={o}>{o}</option>)}
         </select>
       </div>
 
       <div class="field">
-        <label class="field-label" for="f-msg">Tu visión</label>
+        <label class="field-label" for="f-msg">{c.fields.msg}</label>
         <textarea id="f-msg" name="message" rows="4" class="field-input field-textarea"
-          placeholder="Cuéntanos sobre tu boda soñada, el destino que tienes en mente, el número de invitados…" required></textarea>
+          placeholder={c.fields.msgPh} required></textarea>
       </div>
 
-      <button type="submit" class="submit-btn" id="submitBtn">
-        Enviar solicitud
-      </button>
+      <button type="submit" class="submit-btn" id="submitBtn">{c.submit}</button>
     </form>
 
   </div>
 </section>
 
 <style>
-  .contact {
-    padding: 8rem 0;
-    background: var(--surface-low);
-  }
+  .contact { padding: 8rem 0; background: var(--surface-low); }
 
   .contact-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 80px;
+    max-width: 1280px; margin: 0 auto; padding: 0 80px;
     display: grid;
     grid-template-columns: 1fr 1.15fr;
     gap: 6rem;
     align-items: start;
   }
 
-  /* ── Info column ───────────────────────── */
   .section-eyebrow {
     display: block;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
     color: var(--warm-taupe);
     margin-bottom: 1.25rem;
   }
@@ -149,125 +191,77 @@
   .contact-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.25rem, 4vw, 3.5rem);
-    font-weight: 400;
-    color: var(--primary);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-weight: 400; color: var(--primary);
+    line-height: 1.1; letter-spacing: -0.02em;
     margin-bottom: 1.5rem;
   }
 
   .contact-avail {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: var(--text-secondary);
-    line-height: 1.6;
+    font-size: 0.9rem; font-weight: 300;
+    color: var(--text-secondary); line-height: 1.6;
     margin-bottom: 2.5rem;
     padding: 1.25rem 1.5rem;
     border-left: 2px solid var(--soft-blush);
-    background: rgba(244, 219, 216, 0.2);
+    background: rgba(244,219,216,0.2);
   }
 
-  .contact-avail strong {
-    font-weight: 600;
-    color: var(--deep-earth);
-  }
+  .contact-avail strong { font-weight: 600; color: var(--deep-earth); }
 
-  .contact-channels {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  .contact-channels { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
 
   .channel {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    display: flex; align-items: center; gap: 1rem;
     padding: 1.1rem 0;
     border-bottom: 1px solid var(--outline-variant);
-    text-decoration: none;
-    color: inherit;
+    text-decoration: none; color: inherit;
     transition: opacity 0.25s ease;
   }
 
-  .channel--plain {
-    cursor: default;
-  }
+  .channel--plain { cursor: default; }
+  a.channel:hover { opacity: 0.7; }
 
-  a.channel:hover {
-    opacity: 0.7;
-  }
+  .ch-icon { font-size: 1.2rem; color: var(--deep-earth); flex-shrink: 0; }
 
-  .ch-icon {
-    font-size: 1.2rem;
-    color: var(--deep-earth);
-    flex-shrink: 0;
-  }
-
-  .ch-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
+  .ch-body { display: flex; flex-direction: column; gap: 0.15rem; }
 
   .ch-label {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--warm-taupe);
   }
 
   .ch-value {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 400;
+    font-size: 0.875rem; font-weight: 400;
     color: var(--deep-earth);
   }
 
-  /* ── Form column ───────────────────────── */
+  /* Form */
   .contact-form {
     background: var(--surface);
     padding: 3rem 3.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    box-shadow: 24px 24px 80px rgba(58, 21, 1, 0.04), -8px -8px 40px rgba(255,255,255,0.7);
+    display: flex; flex-direction: column; gap: 1.5rem;
+    box-shadow: 24px 24px 80px rgba(58,21,1,0.04), -8px -8px 40px rgba(255,255,255,0.7);
   }
 
   .form-intro {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 300;
-    color: var(--text-secondary);
-    line-height: 1.65;
-    margin: 0;
+    font-size: 0.875rem; font-weight: 300;
+    color: var(--text-secondary); line-height: 1.65; margin: 0;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--outline-variant);
   }
 
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+  .field { display: flex; flex-direction: column; gap: 0.5rem; }
 
   .field-label {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--text-secondary);
   }
 
@@ -277,91 +271,52 @@
     border-bottom: 1px solid var(--outline-variant);
     padding: 0.6rem 0;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    font-style: italic;
+    font-size: 0.9rem; font-style: italic;
     color: var(--text-primary);
     outline: none;
     transition: border-color 0.25s ease;
     width: 100%;
   }
 
-  .field-input::placeholder {
-    color: var(--warm-taupe);
-    opacity: 0.55;
-    font-style: italic;
-  }
-
-  .field-input:focus {
-    border-bottom-color: var(--deep-earth);
-  }
+  .field-input::placeholder { color: var(--warm-taupe); opacity: 0.55; }
+  .field-input:focus { border-bottom-color: var(--deep-earth); }
 
   .field-select {
-    appearance: none;
-    font-style: normal;
-    cursor: pointer;
+    appearance: none; font-style: normal; cursor: pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23bfa09c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0 center;
     padding-right: 1.25rem;
   }
 
-  .field-textarea {
-    resize: vertical;
-    min-height: 100px;
-    line-height: 1.6;
-  }
+  .field-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
 
   .submit-btn {
-    width: 100%;
-    padding: 1.1rem;
-    background: var(--deep-earth);
-    color: var(--soft-blush);
+    width: 100%; padding: 1.1rem;
+    background: var(--deep-earth); color: var(--soft-blush);
     border: none;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
     cursor: pointer;
     transition: opacity 0.25s ease;
     margin-top: 0.5rem;
   }
 
-  .submit-btn:hover {
-    opacity: 0.88;
-  }
+  .submit-btn:hover { opacity: 0.88; }
+  .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
-  .submit-btn:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-  }
-
-  /* ── Responsive ────────────────────────── */
   @media (max-width: 900px) {
-    .contact-inner {
-      padding: 0 24px;
-      grid-template-columns: 1fr;
-      gap: 3.5rem;
-    }
-
-    .form-row {
-      grid-template-columns: 1fr;
-    }
-
-    .contact-form {
-      padding: 2rem;
-    }
+    .contact-inner { padding: 0 24px; grid-template-columns: 1fr; gap: 3.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-form { padding: 2rem; }
   }
 </style>
 
 <script>
   const form = document.getElementById('contactForm') as HTMLFormElement;
   const btn  = document.getElementById('submitBtn')  as HTMLButtonElement;
-
   form?.addEventListener('submit', () => {
-    if (btn) {
-      btn.disabled    = true;
-      btn.textContent = 'Enviando…';
-    }
+    if (btn) { btn.disabled = true; btn.textContent = '…'; }
   });
 </script>
