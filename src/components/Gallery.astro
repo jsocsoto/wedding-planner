@@ -85,11 +85,16 @@ const c = copy[lang];
       </div>
 
       <div class="cell cell-e">
-        <div class="img-wrap">
-          <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=900&q=85"
-               alt="Romantic couple moment" style="object-position:center top" loading="lazy" />
-          <div class="img-overlay"><span class="img-label">Orosí, Cartago</span></div>
-        </div>
+        <button class="img-wrap img-wrap--gallery video-preview" id="openOrosi" aria-label="Ver video Orosí">
+          <video src="/gallery/orosi/principal.mp4" autoplay muted loop playsinline class="preview-video"></video>
+          <div class="img-overlay">
+            <span class="img-label">Orosí, Cartago</span>
+            <span class="gallery-hint">
+              <span class="material-symbols-outlined">play_circle</span>
+              Ver video
+            </span>
+          </div>
+        </button>
       </div>
 
       <div class="cell cell-f">
@@ -114,6 +119,7 @@ const c = copy[lang];
   </button>
   <div class="lb-img-wrap">
     <img class="lb-img" id="lbImg" src="" alt="" />
+    <video class="lb-video" id="lbVideo" controls playsinline></video>
   </div>
   <button class="lb-next" id="lbNext" aria-label="Siguiente">
     <span class="material-symbols-outlined">chevron_right</span>
@@ -281,6 +287,24 @@ const c = copy[lang];
     .cell-a, .cell-b, .cell-c, .cell-d, .cell-e, .cell-quote, .cell-f { grid-column: 1; }
   }
 
+  /* Video preview in grid */
+  .preview-video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Lightbox video */
+  .lb-video {
+    max-width: 100%;
+    max-height: 90vh;
+    display: none;
+    outline: none;
+  }
+
+  .lb-video.is-active { display: block; }
+  .lb-img.is-hidden   { display: none; }
+
   /* Gallery button cell */
   .img-wrap--gallery {
     all: unset;
@@ -404,41 +428,72 @@ const c = copy[lang];
     ],
   };
 
+  const videos: Record<string, string> = {
+    openOrosi: '/gallery/orosi/principal.mp4',
+  };
+
   const lightbox  = document.getElementById('lightbox')  as HTMLElement;
   const lbImg     = document.getElementById('lbImg')     as HTMLImageElement;
+  const lbVideo   = document.getElementById('lbVideo')   as HTMLVideoElement;
   const lbCounter = document.getElementById('lbCounter') as HTMLElement;
+  const lbPrev    = document.getElementById('lbPrev')    as HTMLElement;
+  const lbNext    = document.getElementById('lbNext')    as HTMLElement;
   const lbClose   = document.getElementById('lbClose')!;
-  const lbPrev    = document.getElementById('lbPrev')!;
-  const lbNext    = document.getElementById('lbNext')!;
 
   let photos: string[] = [];
   let current = 0;
+  let isVideo = false;
 
-  function show(idx: number) {
+  function showPhoto(idx: number) {
     current = (idx + photos.length) % photos.length;
     lbImg.src = photos[current];
     lbCounter.textContent = `${current + 1} / ${photos.length}`;
   }
 
-  function open(galleryId: string) {
-    photos = galleries[galleryId];
-    show(0);
+  function openGallery(id: string) {
+    isVideo = false;
+    photos = galleries[id];
+    lbImg.classList.remove('is-hidden');
+    lbVideo.classList.remove('is-active');
+    lbVideo.pause();
+    lbPrev.style.visibility = 'visible';
+    lbNext.style.visibility = 'visible';
+    showPhoto(0);
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function openVideo(id: string) {
+    isVideo = true;
+    lbImg.classList.add('is-hidden');
+    lbVideo.classList.add('is-active');
+    lbVideo.src = videos[id];
+    lbVideo.load();
+    lbCounter.textContent = '';
+    lbPrev.style.visibility = 'hidden';
+    lbNext.style.visibility = 'hidden';
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
   }
 
   function close() {
     lightbox.hidden = true;
+    lbVideo.pause();
+    lbVideo.src = '';
     document.body.style.overflow = '';
   }
 
   Object.keys(galleries).forEach(id => {
-    document.getElementById(id)?.addEventListener('click', () => open(id));
+    document.getElementById(id)?.addEventListener('click', () => openGallery(id));
+  });
+
+  Object.keys(videos).forEach(id => {
+    document.getElementById(id)?.addEventListener('click', () => openVideo(id));
   });
 
   lbClose.addEventListener('click', close);
-  lbPrev.addEventListener('click', () => show(current - 1));
-  lbNext.addEventListener('click', () => show(current + 1));
+  lbPrev.addEventListener('click', () => { if (!isVideo) showPhoto(current - 1); });
+  lbNext.addEventListener('click', () => { if (!isVideo) showPhoto(current + 1); });
 
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) close();
@@ -446,8 +501,8 @@ const c = copy[lang];
 
   document.addEventListener('keydown', (e) => {
     if (lightbox.hidden) return;
-    if (e.key === 'Escape')     close();
-    if (e.key === 'ArrowLeft')  show(current - 1);
-    if (e.key === 'ArrowRight') show(current + 1);
+    if (e.key === 'Escape')                    close();
+    if (e.key === 'ArrowLeft'  && !isVideo)    showPhoto(current - 1);
+    if (e.key === 'ArrowRight' && !isVideo)    showPhoto(current + 1);
   });
 </script>
