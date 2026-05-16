@@ -56,11 +56,17 @@ const c = copy[lang];
       </div>
 
       <div class="cell cell-c">
-        <div class="img-wrap">
-          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=900&q=85"
-               alt="Floral details" style="object-position:center" loading="lazy" />
-          <div class="img-overlay"><span class="img-label">San Rafael, Heredia</span></div>
-        </div>
+        <button class="img-wrap img-wrap--gallery" id="openSanRafael" aria-label="Ver galería San Rafael">
+          <img src="/gallery/san-rafael/principal.jpeg"
+               alt="San Rafael, Heredia" style="object-position:center" loading="lazy" />
+          <div class="img-overlay">
+            <span class="img-label">San Rafael, Heredia</span>
+            <span class="gallery-hint">
+              <span class="material-symbols-outlined">photo_library</span>
+              Ver galería
+            </span>
+          </div>
+        </button>
       </div>
 
       <div class="cell cell-d">
@@ -425,6 +431,15 @@ const c = copy[lang];
       '/gallery/escazu/es-9.jpeg',
       '/gallery/escazu/es-10.jpeg',
       '/gallery/escazu/es-11.jpeg',
+    ],
+    openSanRafael: [
+      '/gallery/san-rafael/principal.jpeg',
+      '/gallery/san-rafael/sr-1.jpeg',
+      '/gallery/san-rafael/sr-2.jpeg',
+      '/gallery/san-rafael/sr-3.jpeg',
+      '/gallery/san-rafael/sr-4.jpeg',
+      '/gallery/san-rafael/sr-5.jpeg',
+      '/gallery/san-rafael/sr-6.jpeg',
     ],
   };
 
