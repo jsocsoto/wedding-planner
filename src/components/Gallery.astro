@@ -64,11 +64,17 @@ const c = copy[lang];
       </div>
 
       <div class="cell cell-d">
-        <div class="img-wrap">
-          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=85"
-               alt="Elegant table setting" style="object-position:center 60%" loading="lazy" />
-          <div class="img-overlay"><span class="img-label">Escazú, San José</span></div>
-        </div>
+        <button class="img-wrap img-wrap--gallery" id="openEscazu" aria-label="Ver galería Escazú">
+          <img src="/gallery/escazu/principal.jpeg"
+               alt="Escazú, San José" style="object-position:center 60%" loading="lazy" />
+          <div class="img-overlay">
+            <span class="img-label">Escazú, San José</span>
+            <span class="gallery-hint">
+              <span class="material-symbols-outlined">photo_library</span>
+              Ver galería
+            </span>
+          </div>
+        </button>
       </div>
 
       <div class="cell cell-quote">
@@ -373,14 +379,30 @@ const c = copy[lang];
 </style>
 
 <script>
-  const photos = [
-    '/gallery/puerto-viejo/principal.jpeg',
-    '/gallery/puerto-viejo/pv-1.jpeg',
-    '/gallery/puerto-viejo/pv-2.jpeg',
-    '/gallery/puerto-viejo/pv-3.jpeg',
-    '/gallery/puerto-viejo/pv-4.jpeg',
-    '/gallery/puerto-viejo/pv-5.jpeg',
-  ];
+  const galleries: Record<string, string[]> = {
+    openPuertoViejo: [
+      '/gallery/puerto-viejo/principal.jpeg',
+      '/gallery/puerto-viejo/pv-1.jpeg',
+      '/gallery/puerto-viejo/pv-2.jpeg',
+      '/gallery/puerto-viejo/pv-3.jpeg',
+      '/gallery/puerto-viejo/pv-4.jpeg',
+      '/gallery/puerto-viejo/pv-5.jpeg',
+    ],
+    openEscazu: [
+      '/gallery/escazu/principal.jpeg',
+      '/gallery/escazu/es-1.jpeg',
+      '/gallery/escazu/es-2.jpeg',
+      '/gallery/escazu/es-3.jpeg',
+      '/gallery/escazu/es-4.jpeg',
+      '/gallery/escazu/es-5.jpeg',
+      '/gallery/escazu/es-6.jpeg',
+      '/gallery/escazu/es-7.jpeg',
+      '/gallery/escazu/es-8.jpeg',
+      '/gallery/escazu/es-9.jpeg',
+      '/gallery/escazu/es-10.jpeg',
+      '/gallery/escazu/es-11.jpeg',
+    ],
+  };
 
   const lightbox  = document.getElementById('lightbox')  as HTMLElement;
   const lbImg     = document.getElementById('lbImg')     as HTMLImageElement;
@@ -388,8 +410,8 @@ const c = copy[lang];
   const lbClose   = document.getElementById('lbClose')!;
   const lbPrev    = document.getElementById('lbPrev')!;
   const lbNext    = document.getElementById('lbNext')!;
-  const openBtn   = document.getElementById('openPuertoViejo')!;
 
+  let photos: string[] = [];
   let current = 0;
 
   function show(idx: number) {
@@ -398,8 +420,9 @@ const c = copy[lang];
     lbCounter.textContent = `${current + 1} / ${photos.length}`;
   }
 
-  function open(idx: number) {
-    show(idx);
+  function open(galleryId: string) {
+    photos = galleries[galleryId];
+    show(0);
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
   }
@@ -409,7 +432,10 @@ const c = copy[lang];
     document.body.style.overflow = '';
   }
 
-  openBtn.addEventListener('click', () => open(0));
+  Object.keys(galleries).forEach(id => {
+    document.getElementById(id)?.addEventListener('click', () => open(id));
+  });
+
   lbClose.addEventListener('click', close);
   lbPrev.addEventListener('click', () => show(current - 1));
   lbNext.addEventListener('click', () => show(current + 1));
@@ -420,7 +446,7 @@ const c = copy[lang];
 
   document.addEventListener('keydown', (e) => {
     if (lightbox.hidden) return;
-    if (e.key === 'Escape')    close();
+    if (e.key === 'Escape')     close();
     if (e.key === 'ArrowLeft')  show(current - 1);
     if (e.key === 'ArrowRight') show(current + 1);
   });
