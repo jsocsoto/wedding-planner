@@ -42,11 +42,17 @@ const c = copy[lang];
       </div>
 
       <div class="cell cell-b">
-        <div class="img-wrap">
-          <img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=900&q=85"
-               alt="Sunset couple" style="object-position:center top" loading="lazy" />
-          <div class="img-overlay"><span class="img-label">Puerto Viejo, Limón</span></div>
-        </div>
+        <button class="img-wrap img-wrap--gallery" id="openPuertoViejo" aria-label="Ver galería Puerto Viejo">
+          <img src="/gallery/puerto-viejo/principal.jpeg"
+               alt="Puerto Viejo, Limón" style="object-position:center top" loading="lazy" />
+          <div class="img-overlay">
+            <span class="img-label">Puerto Viejo, Limón</span>
+            <span class="gallery-hint">
+              <span class="material-symbols-outlined">photo_library</span>
+              Ver galería
+            </span>
+          </div>
+        </button>
       </div>
 
       <div class="cell cell-c">
@@ -91,6 +97,23 @@ const c = copy[lang];
     </div>
   </div>
 </section>
+
+<!-- Lightbox Puerto Viejo -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galería Puerto Viejo" hidden>
+  <button class="lb-close" id="lbClose" aria-label="Cerrar">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  <button class="lb-prev" id="lbPrev" aria-label="Anterior">
+    <span class="material-symbols-outlined">chevron_left</span>
+  </button>
+  <div class="lb-img-wrap">
+    <img class="lb-img" id="lbImg" src="" alt="" />
+  </div>
+  <button class="lb-next" id="lbNext" aria-label="Siguiente">
+    <span class="material-symbols-outlined">chevron_right</span>
+  </button>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
 
 <style>
   .portfolio { padding: 8rem 0; }
@@ -251,4 +274,154 @@ const c = copy[lang];
     .grid-layout { grid-template-columns: 1fr; }
     .cell-a, .cell-b, .cell-c, .cell-d, .cell-e, .cell-quote, .cell-f { grid-column: 1; }
   }
+
+  /* Gallery button cell */
+  .img-wrap--gallery {
+    all: unset;
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .img-wrap--gallery .img-overlay { opacity: 1; }
+
+  .gallery-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(244,219,216,0.85);
+    margin-top: 0.4rem;
+  }
+
+  .gallery-hint .material-symbols-outlined { font-size: 0.95rem; }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(20, 12, 8, 0.96);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .lightbox[hidden] { display: none; }
+
+  .lb-img-wrap {
+    flex: 1;
+    max-width: 860px;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lb-img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    display: block;
+  }
+
+  .lb-close {
+    position: absolute;
+    top: 1.25rem; right: 1.25rem;
+    background: none; border: none; cursor: pointer;
+    color: rgba(244,219,216,0.75);
+    transition: color 0.2s ease;
+    line-height: 1; padding: 0.25rem;
+  }
+
+  .lb-close:hover { color: #fdf8f6; }
+  .lb-close .material-symbols-outlined { font-size: 2rem; }
+
+  .lb-prev, .lb-next {
+    background: none; border: none; cursor: pointer;
+    color: rgba(244,219,216,0.65);
+    transition: color 0.2s ease;
+    flex-shrink: 0; padding: 0.5rem;
+  }
+
+  .lb-prev:hover, .lb-next:hover { color: #fdf8f6; }
+  .lb-prev .material-symbols-outlined,
+  .lb-next .material-symbols-outlined { font-size: 3rem; }
+
+  .lb-counter {
+    position: absolute;
+    bottom: 1.25rem; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(244,219,216,0.5);
+  }
+
+  @media (max-width: 600px) {
+    .lb-prev .material-symbols-outlined,
+    .lb-next .material-symbols-outlined { font-size: 2rem; }
+  }
 </style>
+
+<script>
+  const photos = [
+    '/gallery/puerto-viejo/principal.jpeg',
+    '/gallery/puerto-viejo/pv-1.jpeg',
+    '/gallery/puerto-viejo/pv-2.jpeg',
+    '/gallery/puerto-viejo/pv-3.jpeg',
+    '/gallery/puerto-viejo/pv-4.jpeg',
+    '/gallery/puerto-viejo/pv-5.jpeg',
+  ];
+
+  const lightbox  = document.getElementById('lightbox')  as HTMLElement;
+  const lbImg     = document.getElementById('lbImg')     as HTMLImageElement;
+  const lbCounter = document.getElementById('lbCounter') as HTMLElement;
+  const lbClose   = document.getElementById('lbClose')!;
+  const lbPrev    = document.getElementById('lbPrev')!;
+  const lbNext    = document.getElementById('lbNext')!;
+  const openBtn   = document.getElementById('openPuertoViejo')!;
+
+  let current = 0;
+
+  function show(idx: number) {
+    current = (idx + photos.length) % photos.length;
+    lbImg.src = photos[current];
+    lbCounter.textContent = `${current + 1} / ${photos.length}`;
+  }
+
+  function open(idx: number) {
+    show(idx);
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lightbox.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  openBtn.addEventListener('click', () => open(0));
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', () => show(current - 1));
+  lbNext.addEventListener('click', () => show(current + 1));
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.hidden) return;
+    if (e.key === 'Escape')    close();
+    if (e.key === 'ArrowLeft')  show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+</script>
