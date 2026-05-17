@@ -4,6 +4,7 @@ description: "From micro-weddings that prioritize depth over breadth to the retu
 date: "2026-03-20"
 category: "Trends"
 image: "/blog/trends-2026-cover.jpeg"
+imagePosition: "20%"
 ---
 
 Every year we work with couples from different countries, different backgrounds, different visions — and yet a few threads always emerge. Certain ideas are in the air. Certain aesthetics rise. Here is what we are seeing in 2026, and why some of it will outlast any trend cycle.

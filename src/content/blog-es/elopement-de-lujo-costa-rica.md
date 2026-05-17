@@ -4,7 +4,7 @@ description: "Los elopements han dejado atrás su vieja reputación. El elopemen
 date: "2026-04-15"
 category: "Elopements"
 image: "/blog/elopement-cover.jpeg"
-imagePosition: "top"
+imagePosition: "15%"
 ---
 
 Hubo un tiempo en que escaparse a casarse significaba llegar apresuradamente a un juzgado y guardar el secreto. Ese tiempo quedó atrás. Las parejas de hoy están descubriendo algo mucho más poderoso: un elopement de lujo no es una renuncia — es una elevación.

@@ -4,6 +4,7 @@ description: "Desde micro-bodas que priorizan la profundidad sobre la cantidad h
 date: "2026-03-20"
 category: "Tendencias"
 image: "/blog/trends-2026-cover.jpeg"
+imagePosition: "20%"
 ---
 
 Cada año trabajamos con parejas de diferentes países, diferentes orígenes, diferentes visiones — y sin embargo siempre emergen algunos hilos comunes. Ciertas ideas están en el aire. Ciertos estilos suben. Esto es lo que estamos viendo en 2026, y por qué algunas cosas sobrevivirán cualquier ciclo de tendencias.
