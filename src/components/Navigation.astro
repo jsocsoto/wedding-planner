@@ -2,24 +2,26 @@
 interface Props { lang?: 'es' | 'en' }
 const { lang = 'es' } = Astro.props;
 
+const home = lang === 'en' ? '/' : '/es/';
+
 const copy = {
   es: {
     links: [
-      { href: '#about',        label: 'La Fundadora' },
-      { href: '#services',     label: 'Servicios' },
-      { href: '#gallery',      label: 'Portfolio' },
-      { href: '#testimonials', label: 'Testimonios' },
-      { href: '/es/blog/',     label: 'Revista' },
+      { href: `${home}#about`,        label: 'La Fundadora' },
+      { href: `${home}#services`,     label: 'Servicios' },
+      { href: `${home}#gallery`,      label: 'Portfolio' },
+      { href: `${home}#testimonials`, label: 'Testimonios' },
+      { href: '/es/blog/',            label: 'Revista' },
     ],
     cta: 'Agenda tu experiencia',
   },
   en: {
     links: [
-      { href: '#about',        label: 'About' },
-      { href: '#services',     label: 'Services' },
-      { href: '#gallery',      label: 'Portfolio' },
-      { href: '#testimonials', label: 'Testimonials' },
-      { href: '/blog/',        label: 'Journal' },
+      { href: `${home}#about`,        label: 'About' },
+      { href: `${home}#services`,     label: 'Services' },
+      { href: `${home}#gallery`,      label: 'Portfolio' },
+      { href: `${home}#testimonials`, label: 'Testimonials' },
+      { href: '/blog/',               label: 'Journal' },
     ],
     cta: 'Plan your experience',
   },
@@ -43,7 +45,7 @@ const otherLabel = lang === 'en' ? 'ES' : 'EN';
       {c.links.map(l => (
         <a href={l.href} class="nav-link">{l.label}</a>
       ))}
-      <a href="#contact" class="nav-cta">{c.cta}</a>
+      <a href={`${home}#contact`} class="nav-cta">{c.cta}</a>
       <a href={otherHref} class="nav-lang">{otherLabel}</a>
     </nav>
   </div>
@@ -87,7 +89,7 @@ const otherLabel = lang === 'en' ? 'ES' : 'EN';
   .nav {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
+    gap: 1.75rem;
   }
 
   .nav-link {
