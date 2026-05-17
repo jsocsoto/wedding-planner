@@ -9,7 +9,7 @@ interface Props {
 
 const {
 	title,
-	description = "Kimaura Allen Events — Luxury destination weddings & intimate celebrations in Costa Rica.",
+	description = "Luxury destination wedding planner in Costa Rica — specializing in intimate weddings, elopements, Caribbean ceremonies, and boutique wedding concierge experiences.",
 	lang = 'es',
 	canonicalUrl,
 	ogImage: ogImageProp,
@@ -22,11 +22,16 @@ const altEn     = `${base}/`;
 const ogImage   = ogImageProp ?? `${base}/og-image.jpg`;
 const ogLocale  = lang === 'es' ? 'es_CR' : 'en_US';
 
+const schemaDescription = lang === 'en'
+	? 'Luxury destination wedding planner in Costa Rica specializing in intimate weddings, elopements, Caribbean ceremonies, and boutique wedding concierge experiences.'
+	: 'Wedding planner especializada en bodas de destino de lujo en Costa Rica — bodas íntimas, elopements, ceremonias en el Caribe y experiencias boutique de wedding concierge.';
+
 const schema = {
 	'@context': 'https://schema.org',
-	'@type': 'LocalBusiness',
+	'@type': 'ProfessionalService',
+	additionalType: 'https://schema.org/LocalBusiness',
 	name: 'Kimaura Allen Events',
-	description: 'Wedding and event planner especializada en bodas de destino de lujo en Costa Rica.',
+	description: schemaDescription,
 	url: base,
 	telephone: '+50664708592',
 	email: 'info@kimauraallen.com',
@@ -41,6 +46,16 @@ const schema = {
 	sameAs: ['https://www.instagram.com/kimaurallen/'],
 	priceRange: '$$$$',
 	areaServed: { '@type': 'Country', name: 'Costa Rica' },
+	hasOfferCatalog: {
+		'@type': 'OfferCatalog',
+		name: lang === 'en' ? 'Wedding Planning Services' : 'Servicios de Planificación de Bodas',
+		itemListElement: [
+			{ '@type': 'Offer', itemOffered: { '@type': 'Service', name: lang === 'en' ? 'Destination Wedding Planning' : 'Planificación de Bodas de Destino' } },
+			{ '@type': 'Offer', itemOffered: { '@type': 'Service', name: lang === 'en' ? 'Full Wedding Planning' : 'Planificación Completa de Bodas' } },
+			{ '@type': 'Offer', itemOffered: { '@type': 'Service', name: lang === 'en' ? 'Wedding Concierge' : 'Wedding Concierge' } },
+			{ '@type': 'Offer', itemOffered: { '@type': 'Service', name: lang === 'en' ? 'Luxury Elopements' : 'Elopements de Lujo' } },
+		],
+	},
 };
 ---
 

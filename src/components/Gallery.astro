@@ -6,12 +6,14 @@ const copy = {
   es: {
     eyebrow: 'Portfolio',
     title:   'Historias Inolvidables',
+    sub:     'Bodas de destino en Costa Rica — desde la costa caribeña de Limón hasta las colinas de Escazú.',
     cta:     'Ver todas las historias →',
     quote:   '"Cada celebración debe contar una historia real."',
   },
   en: {
     eyebrow: 'Portfolio',
     title:   'Unforgettable Stories',
+    sub:     'Destination weddings across Costa Rica — from the Caribbean coast of Limón to the hills of Escazú and beyond.',
     cta:     'See all stories →',
     quote:   '"Every celebration should tell a real story."',
   },
@@ -27,6 +29,7 @@ const c = copy[lang];
       <div>
         <span class="section-eyebrow">{c.eyebrow}</span>
         <h2 class="section-title">{c.title}</h2>
+        <p class="section-sub">{c.sub}</p>
       </div>
       <a href="#contact" class="view-all">{c.cta}</a>
     </header>
@@ -36,7 +39,7 @@ const c = copy[lang];
       <div class="cell cell-a">
         <div class="img-wrap">
           <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1400&q=85"
-               alt="Intimate ocean ceremony" style="object-position:center 40%" loading="lazy" />
+               alt="Intimate Caribbean wedding ceremony in Westfalia, Limón, Costa Rica" style="object-position:center 40%" loading="lazy" />
           <div class="img-overlay"><span class="img-label">Westfalia, Limón</span></div>
         </div>
       </div>
@@ -44,7 +47,7 @@ const c = copy[lang];
       <div class="cell cell-b">
         <button class="img-wrap img-wrap--gallery" id="openPuertoViejo" aria-label="Ver galería Puerto Viejo">
           <img src="/gallery/puerto-viejo/principal.jpeg"
-               alt="Puerto Viejo, Limón" style="object-position:center top" loading="lazy" />
+               alt="Luxury destination wedding in Puerto Viejo, Caribbean coast of Limón, Costa Rica" style="object-position:center top" loading="lazy" />
           <div class="img-overlay">
             <span class="img-label">Puerto Viejo, Limón</span>
             <span class="gallery-hint">
@@ -58,7 +61,7 @@ const c = copy[lang];
       <div class="cell cell-c">
         <button class="img-wrap img-wrap--gallery" id="openSanRafael" aria-label="Ver galería San Rafael">
           <img src="/gallery/san-rafael/principal.jpeg"
-               alt="San Rafael, Heredia" style="object-position:center" loading="lazy" />
+               alt="Intimate garden wedding in San Rafael, Heredia, Costa Rica" style="object-position:center" loading="lazy" />
           <div class="img-overlay">
             <span class="img-label">San Rafael, Heredia</span>
             <span class="gallery-hint">
@@ -72,7 +75,7 @@ const c = copy[lang];
       <div class="cell cell-d">
         <button class="img-wrap img-wrap--gallery" id="openEscazu" aria-label="Ver galería Escazú">
           <img src="/gallery/escazu/principal.jpeg"
-               alt="Escazú, San José" style="object-position:center 30%" loading="lazy" />
+               alt="Luxury wedding reception in Escazú, San José, Costa Rica" style="object-position:center 30%" loading="lazy" />
           <div class="img-overlay">
             <span class="img-label">Escazú, San José</span>
             <span class="gallery-hint">
@@ -106,7 +109,7 @@ const c = copy[lang];
       <div class="cell cell-f">
         <button class="img-wrap img-wrap--gallery" id="openEmotionalMoments" aria-label="Ver galería Emotional Moments">
           <img src="/gallery/emotional-moments/principal.jpeg"
-               alt="Emotional Moments" style="object-position:center" loading="lazy" />
+               alt="Emotional wedding moments captured during a boutique celebration in Costa Rica" style="object-position:center" loading="lazy" />
           <div class="img-overlay">
             <span class="img-label">Emotional Moments</span>
             <span class="gallery-hint">
@@ -169,6 +172,17 @@ const c = copy[lang];
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     font-weight: 400;
     color: var(--primary);
+    margin: 0 0 0.5rem;
+  }
+
+  .section-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    opacity: 0.75;
+    line-height: 1.6;
+    max-width: 480px;
     margin: 0;
   }
 
