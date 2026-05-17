@@ -3,7 +3,7 @@ title: "Tendencias de Bodas que Amamos en 2026 (y las Atemporales que Nunca Vamo
 description: "Desde micro-bodas que priorizan la profundidad sobre la cantidad hasta el regreso de la luz de las velas y las flores con significado — esto es lo que está dando forma a las bodas más hermosas de 2026."
 date: "2026-03-20"
 category: "Tendencias"
-image: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1200&q=85"
+image: "/blog/trends-2026-cover.jpeg"
 ---
 
 Cada año trabajamos con parejas de diferentes países, diferentes orígenes, diferentes visiones — y sin embargo siempre emergen algunos hilos comunes. Ciertas ideas están en el aire. Ciertos estilos suben. Esto es lo que estamos viendo en 2026, y por qué algunas cosas sobrevivirán cualquier ciclo de tendencias.
