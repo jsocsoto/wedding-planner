@@ -1,0 +1,214 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const posts = (await getCollection('blog-es')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const base = 'https://kimauraallen.com';
+---
+
+<Layout
+  title="Revista — Kimaura Allen Events"
+  description="Historias, inspiración y guías para parejas que planifican su boda de destino en Costa Rica."
+  lang="es"
+  canonicalUrl={`${base}/es/blog/`}
+>
+  <Navigation lang="es" />
+
+  <main class="blog-main">
+    <header class="blog-hero">
+      <p class="blog-eyebrow">La Revista</p>
+      <h1 class="blog-title">Historias e Inspiración</h1>
+      <p class="blog-subtitle">Guías, lugares destacados e ideas para parejas que planifican su boda en Costa Rica.</p>
+    </header>
+
+    <section class="blog-grid">
+      {posts.map((post, i) => (
+        <article class={`blog-card ${i === 0 ? 'blog-card--featured' : ''}`}>
+          {post.data.image && (
+            <a href={`/es/blog/${post.slug}/`} class="card-image-wrap">
+              <img
+                src={post.data.image}
+                alt={post.data.title}
+                class="card-image"
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+            </a>
+          )}
+          <div class="card-body">
+            <span class="card-category">{post.data.category}</span>
+            <h2 class="card-title">
+              <a href={`/es/blog/${post.slug}/`}>{post.data.title}</a>
+            </h2>
+            <p class="card-desc">{post.data.description}</p>
+            <a href={`/es/blog/${post.slug}/`} class="card-read">Leer más</a>
+          </div>
+        </article>
+      ))}
+    </section>
+  </main>
+
+  <Footer lang="es" />
+</Layout>
+
+<style>
+  .blog-main {
+    padding-top: 100px;
+    min-height: 100vh;
+    background: var(--surface);
+  }
+
+  .blog-hero {
+    text-align: center;
+    padding: 5rem 2rem 3.5rem;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .blog-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-taupe);
+    margin-bottom: 1rem;
+  }
+
+  .blog-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+
+  .blog-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .blog-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--outline-variant);
+  }
+
+  .blog-card--featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+  }
+
+  .card-image-wrap {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 3 / 2;
+  }
+
+  .blog-card--featured .card-image-wrap {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .card-image-wrap:hover .card-image { transform: scale(1.03); }
+
+  .card-body {
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+  }
+
+  .blog-card--featured .card-body {
+    padding: 2.5rem 2.5rem;
+    justify-content: center;
+  }
+
+  .card-category {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm-taupe);
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--primary);
+  }
+
+  .blog-card--featured .card-title { font-size: 1.75rem; }
+
+  .card-title a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+  }
+
+  .card-title a:hover { color: var(--deep-earth); }
+
+  .card-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .card-read {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--outline-variant);
+    padding-bottom: 2px;
+    align-self: flex-start;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .card-read:hover { border-color: var(--primary); }
+
+  @media (max-width: 900px) {
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+    .blog-card--featured { grid-column: 1 / -1; grid-template-columns: 1fr; }
+    .blog-card--featured .card-image-wrap { aspect-ratio: 16 / 9; height: auto; }
+  }
+
+  @media (max-width: 600px) {
+    .blog-grid { grid-template-columns: 1fr; gap: 1.5rem; padding: 0 1.25rem 4rem; }
+  }
+</style>

@@ -3,19 +3,23 @@ interface Props {
 	title: string;
 	description?: string;
 	lang?: 'es' | 'en';
+	canonicalUrl?: string;
+	ogImage?: string;
 }
 
 const {
 	title,
 	description = "Kimaura Allen Events — Luxury destination weddings & intimate celebrations in Costa Rica.",
 	lang = 'es',
+	canonicalUrl,
+	ogImage: ogImageProp,
 } = Astro.props;
 
 const base      = 'https://kimauraallen.com';
-const canonical = lang === 'en' ? `${base}/` : `${base}/es/`;
+const canonical = canonicalUrl ?? (lang === 'en' ? `${base}/` : `${base}/es/`);
 const altEs     = `${base}/es/`;
 const altEn     = `${base}/`;
-const ogImage   = `${base}/og-image.jpg`;
+const ogImage   = ogImageProp ?? `${base}/og-image.jpg`;
 const ogLocale  = lang === 'es' ? 'es_CR' : 'en_US';
 
 const schema = {
