@@ -3,7 +3,7 @@ title: "Bodas en el Caribe Costarricense: Donde Cada Momento Se Convierte en His
 description: "Donde la selva se encuentra con el mar, el Caribe costarricense transforma una boda en algo mucho más que un evento — una experiencia viva que cuenta la historia de quiénes son."
 date: "2026-05-01"
 category: "Destinos"
-image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=85"
+image: "/blog/caribbean-wedding-cover.jpeg"
 ---
 
 Cuando pensamos en el escenario soñado para decir *sí, acepto*, el Caribe costarricense aparece como una joya que combina lo mejor de dos mundos: la riqueza natural extraordinaria que define a Costa Rica, y la calidez cultural de una región vibrante, auténtica y como ningún otro lugar en el planeta.

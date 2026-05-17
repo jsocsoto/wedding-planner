@@ -3,7 +3,7 @@ title: "Weddings in the Costa Rican Caribbean: Where Every Moment Becomes a Stor
 description: "Where the jungle meets the sea, the Costa Rican Caribbean transforms a wedding into something far beyond an event — a living, breathing experience that tells the story of who you are."
 date: "2026-05-01"
 category: "Destinations"
-image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=85"
+image: "/blog/caribbean-wedding-cover.jpeg"
 ---
 
 When we think of a dream setting to say *I do*, the Costa Rican Caribbean emerges as a jewel that combines the best of two worlds: the extraordinary natural richness that defines Costa Rica, and the cultural warmth of a region that is vibrant, authentic, and unlike anywhere else on earth.
