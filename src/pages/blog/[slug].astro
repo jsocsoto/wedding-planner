@@ -27,7 +27,7 @@ const dateFormatted = new Date(post.data.date).toLocaleDateString('en-US', {
   canonicalUrl={canonicalUrl}
   ogImage={post.data.image}
 >
-  <Navigation lang="en" />
+  <Navigation lang="en" transparent={false} />
 
   <main class="post-main">
     {post.data.image && (

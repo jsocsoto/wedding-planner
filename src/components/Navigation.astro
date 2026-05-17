@@ -1,6 +1,6 @@
 ---
-interface Props { lang?: 'es' | 'en' }
-const { lang = 'es' } = Astro.props;
+interface Props { lang?: 'es' | 'en'; transparent?: boolean }
+const { lang = 'es', transparent = true } = Astro.props;
 
 const home = lang === 'en' ? '/' : '/es/';
 
@@ -33,7 +33,7 @@ const otherHref = lang === 'en' ? '/es' : '/';
 const otherLabel = lang === 'en' ? 'ES' : 'EN';
 ---
 
-<header class="site-header" id="site-header">
+<header class={`site-header${!transparent ? ' is-scrolled' : ''}`} id="site-header" data-transparent={transparent}>
   <div class="header-inner">
     <a href={lang === 'en' ? '/#home' : '/es#home'} class="brand">Kimaura Allen Events</a>
 
@@ -217,9 +217,12 @@ const otherLabel = lang === 'en' ? 'ES' : 'EN';
   const hamburger = document.getElementById('hamburger')!;
   const nav       = document.getElementById('main-nav')!;
 
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('is-scrolled', window.scrollY > 40);
-  }, { passive: true });
+  const isTransparent = header.dataset.transparent === 'true';
+  if (isTransparent) {
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 40);
+    }, { passive: true });
+  }
 
   hamburger.addEventListener('click', () => {
     const open = hamburger.classList.toggle('is-open');
