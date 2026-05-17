@@ -3,17 +3,17 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://kimauraallen.com/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kimauraallen.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kimauraallen.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kimauraallen.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kimauraallen.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kimauraallen.com/"/>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://kimauraallen.com/en/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kimauraallen.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kimauraallen.com/en/"/>
+    <loc>https://kimauraallen.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kimauraallen.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kimauraallen.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kimauraallen.com/"/>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>

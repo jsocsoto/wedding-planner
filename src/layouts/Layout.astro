@@ -12,9 +12,9 @@ const {
 } = Astro.props;
 
 const base      = 'https://kimauraallen.com';
-const canonical = lang === 'es' ? `${base}/` : `${base}/en/`;
-const altEs     = `${base}/`;
-const altEn     = `${base}/en/`;
+const canonical = lang === 'en' ? `${base}/` : `${base}/es/`;
+const altEs     = `${base}/es/`;
+const altEn     = `${base}/`;
 const ogImage   = `${base}/og-image.jpg`;
 const ogLocale  = lang === 'es' ? 'es_CR' : 'en_US';
 

@@ -24,14 +24,14 @@ const copy = {
 };
 
 const c = copy[lang];
-const otherLang = lang === 'es' ? 'en' : 'es';
-const otherHref = lang === 'es' ? '/en' : '/';
-const otherLabel = lang === 'es' ? 'EN' : 'ES';
+const otherLang = lang === 'en' ? 'es' : 'en';
+const otherHref = lang === 'en' ? '/es' : '/';
+const otherLabel = lang === 'en' ? 'ES' : 'EN';
 ---
 
 <header class="site-header" id="site-header">
   <div class="header-inner">
-    <a href={lang === 'es' ? '/#home' : '/en#home'} class="brand">Kimaura Allen Events</a>
+    <a href={lang === 'en' ? '/#home' : '/es#home'} class="brand">Kimaura Allen Events</a>
 
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
