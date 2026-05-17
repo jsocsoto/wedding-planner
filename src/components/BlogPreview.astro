@@ -35,6 +35,7 @@ const c = copy[lang];
                 src={post.data.image}
                 alt={post.data.title}
                 class="bp-img"
+                style={post.data.imagePosition ? `object-position: center ${post.data.imagePosition}` : ''}
                 loading="lazy"
               />
             </a>

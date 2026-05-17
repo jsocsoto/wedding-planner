@@ -35,6 +35,7 @@ const base = 'https://kimauraallen.com';
                 src={post.data.image}
                 alt={post.data.title}
                 class="card-image"
+                style={post.data.imagePosition ? `object-position: center ${post.data.imagePosition}` : ''}
                 loading={i === 0 ? 'eager' : 'lazy'}
               />
             </a>
