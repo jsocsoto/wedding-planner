@@ -2,37 +2,90 @@
 interface Props {
 	title: string;
 	description?: string;
+	lang?: 'es' | 'en';
 }
 
 const {
 	title,
-	description = "Kimaura Allen Events — Luxury destination weddings & intimate celebrations in Costa Rica."
+	description = "Kimaura Allen Events — Luxury destination weddings & intimate celebrations in Costa Rica.",
+	lang = 'es',
 } = Astro.props;
+
+const base      = 'https://kimauraallen.com';
+const canonical = lang === 'es' ? `${base}/` : `${base}/en/`;
+const altEs     = `${base}/`;
+const altEn     = `${base}/en/`;
+const ogImage   = `${base}/og-image.jpg`;
+const ogLocale  = lang === 'es' ? 'es_CR' : 'en_US';
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': 'LocalBusiness',
+	name: 'Kimaura Allen Events',
+	description: 'Wedding and event planner especializada en bodas de destino de lujo en Costa Rica.',
+	url: base,
+	telephone: '+50664708592',
+	email: 'info@kimauraallen.com',
+	image: ogImage,
+	logo: `${base}/favicon-64.png`,
+	address: {
+		'@type': 'PostalAddress',
+		addressLocality: 'San José',
+		addressRegion: 'San José',
+		addressCountry: 'CR',
+	},
+	sameAs: ['https://www.instagram.com/kimaurallen/'],
+	priceRange: '$$$$',
+	areaServed: { '@type': 'Country', name: 'Costa Rica' },
+};
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- Primary meta -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+
+		<!-- hreflang -->
+		<link rel="alternate" hreflang="es" href={altEs} />
+		<link rel="alternate" hreflang="en" href={altEn} />
+		<link rel="alternate" hreflang="x-default" href={altEs} />
+
+		<!-- Open Graph -->
+		<meta property="og:type"        content="website" />
+		<meta property="og:url"         content={canonical} />
+		<meta property="og:title"       content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image"       content={ogImage} />
+		<meta property="og:locale"      content={ogLocale} />
+		<meta property="og:site_name"   content="Kimaura Allen Events" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card"        content="summary_large_image" />
+		<meta name="twitter:title"       content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image"       content={ogImage} />
+
+		<!-- Favicons -->
 		<link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-		<meta name="generator" content={Astro.generator} />
+
+		<!-- Structured data -->
+		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
 		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
-
-		<!-- Material Symbols -->
 		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-
-		<!-- Font Awesome (for social icons in footer) -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
