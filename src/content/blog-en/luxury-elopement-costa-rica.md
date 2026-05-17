@@ -3,7 +3,7 @@ title: "The Art of the Luxury Elopement: Intimate, Intentional, Unforgettable"
 description: "Elopements have shed their old reputation. Today's luxury elopement is a fully curated experience — just the two of you, the landscape, and every detail done to perfection."
 date: "2026-04-15"
 category: "Elopements"
-image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1200&q=85"
+image: "/blog/elopement-cover.jpeg"
 ---
 
 There was a time when eloping meant rushing to a courthouse and keeping a secret. That time is long gone. Today's couples are discovering something far more powerful: a luxury elopement is not a compromise — it is an elevation.

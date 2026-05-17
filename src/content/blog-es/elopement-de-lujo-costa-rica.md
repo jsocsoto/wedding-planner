@@ -3,7 +3,7 @@ title: "El Arte del Elopement de Lujo: Íntimo, Intencional, Inolvidable"
 description: "Los elopements han dejado atrás su vieja reputación. El elopement de lujo de hoy es una experiencia completamente curada — solo ustedes dos, el paisaje y cada detalle llevado a la perfección."
 date: "2026-04-15"
 category: "Elopements"
-image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1200&q=85"
+image: "/blog/elopement-cover.jpeg"
 ---
 
 Hubo un tiempo en que escaparse a casarse significaba llegar apresuradamente a un juzgado y guardar el secreto. Ese tiempo quedó atrás. Las parejas de hoy están descubriendo algo mucho más poderoso: un elopement de lujo no es una renuncia — es una elevación.
