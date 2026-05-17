@@ -11,7 +11,7 @@ const copy = {
       { href: `${home}#services`,     label: 'Servicios' },
       { href: `${home}#gallery`,      label: 'Portfolio' },
       { href: `${home}#testimonials`, label: 'Testimonios' },
-      { href: '/es/blog/',            label: 'Revista' },
+      { href: `${home}#journal`,       label: 'Revista' },
     ],
     cta: 'Agenda tu experiencia',
   },
@@ -21,7 +21,7 @@ const copy = {
       { href: `${home}#services`,     label: 'Services' },
       { href: `${home}#gallery`,      label: 'Portfolio' },
       { href: `${home}#testimonials`, label: 'Testimonials' },
-      { href: '/blog/',               label: 'Journal' },
+      { href: `${home}#journal`,       label: 'Journal' },
     ],
     cta: 'Plan your experience',
   },
@@ -237,12 +237,15 @@ const otherLabel = lang === 'en' ? 'ES' : 'EN';
     });
   });
 
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  document.querySelectorAll('a[href^="#"], a[href^="/#"], a[href^="/es/#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
-      e.preventDefault();
-      const id = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
-      const el = document.querySelector(id || '');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href') || '';
+      const hash = href.includes('#') ? '#' + href.split('#')[1] : href;
+      const el = document.querySelector(hash);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     });
   });
 </script>
