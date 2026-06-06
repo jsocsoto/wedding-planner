@@ -4,18 +4,22 @@ const { lang = 'es' } = Astro.props;
 
 const copy = {
   es: {
-    eyebrow: 'Portfolio',
-    title:   'Historias Inolvidables',
-    sub:     'Bodas de destino en Costa Rica — desde la costa caribeña de Limón hasta las colinas de Escazú.',
-    cta:     'Ver todas las historias →',
-    quote:   '"Cada celebración debe contar una historia real."',
+    eyebrow:      'Portfolio',
+    title:        'Historias Inolvidables',
+    sub:          'Bodas de destino en Costa Rica — desde la costa caribeña de Limón hasta las colinas de Escazú.',
+    cta:          'Ver todas las historias →',
+    quote:        '"Cada celebración debe contar una historia real."',
+    galleryHint:  'Ver galería',
+    videoHint:    'Ver video',
   },
   en: {
-    eyebrow: 'Portfolio',
-    title:   'Unforgettable Stories',
-    sub:     'Destination weddings across Costa Rica — from the Caribbean coast of Limón to the hills of Escazú and beyond.',
-    cta:     'See all stories →',
-    quote:   '"Every celebration should tell a real story."',
+    eyebrow:      'Portfolio',
+    title:        'Unforgettable Stories',
+    sub:          'Destination weddings across Costa Rica — from the Caribbean coast of Limón to the hills of Escazú and beyond.',
+    cta:          'See all stories →',
+    quote:        '"Every celebration should tell a real story."',
+    galleryHint:  'View gallery',
+    videoHint:    'Watch video',
   },
 };
 
@@ -31,7 +35,10 @@ const c = copy[lang];
         <h2 class="section-title">{c.title}</h2>
         <p class="section-sub">{c.sub}</p>
       </div>
-      <a href="#contact" class="view-all">{c.cta}</a>
+      {lang === 'en'
+        ? <button class="view-all view-all--btn" id="openAllGallery">{c.cta}</button>
+        : <a href="#contact" class="view-all">{c.cta}</a>
+      }
     </header>
 
     <div class="grid-layout">
@@ -44,7 +51,7 @@ const c = copy[lang];
             <span class="img-label">Westfalia, Limón</span>
             <span class="gallery-hint">
               <span class="material-symbols-outlined">photo_library</span>
-              Ver galería
+              {c.galleryHint}
             </span>
           </div>
         </button>
@@ -58,7 +65,7 @@ const c = copy[lang];
             <span class="img-label">Puerto Viejo, Limón</span>
             <span class="gallery-hint">
               <span class="material-symbols-outlined">photo_library</span>
-              Ver galería
+              {c.galleryHint}
             </span>
           </div>
         </button>
@@ -72,7 +79,7 @@ const c = copy[lang];
             <span class="img-label">San Rafael, Heredia</span>
             <span class="gallery-hint">
               <span class="material-symbols-outlined">photo_library</span>
-              Ver galería
+              {c.galleryHint}
             </span>
           </div>
         </button>
@@ -86,7 +93,7 @@ const c = copy[lang];
             <span class="img-label">Escazú, San José</span>
             <span class="gallery-hint">
               <span class="material-symbols-outlined">photo_library</span>
-              Ver galería
+              {c.galleryHint}
             </span>
           </div>
         </button>
@@ -106,21 +113,21 @@ const c = copy[lang];
             <span class="img-label">Orosí, Cartago</span>
             <span class="gallery-hint">
               <span class="material-symbols-outlined">play_circle</span>
-              Ver video
+              {c.videoHint}
             </span>
           </div>
         </button>
       </div>
 
       <div class="cell cell-f">
-        <button class="img-wrap img-wrap--gallery" id="openEmotionalMoments" aria-label="Ver galería Emotional Moments">
+        <button class="img-wrap img-wrap--gallery" id="openSanJoaquin" aria-label="Ver galería San Joaquín, Heredia">
           <img src="/gallery/emotional-moments/principal.jpeg"
-               alt="Emotional wedding moments captured during a boutique celebration in Costa Rica" style="object-position:center 35%" loading="lazy" />
+               alt="Intimate wedding celebration in San Joaquín, Heredia, Costa Rica" style="object-position:center 35%" loading="lazy" />
           <div class="img-overlay">
-            <span class="img-label">Emotional Moments</span>
+            <span class="img-label">San Joaquín, Heredia</span>
             <span class="gallery-hint">
               <span class="material-symbols-outlined">photo_library</span>
-              Ver galería
+              {c.galleryHint}
             </span>
           </div>
         </button>
@@ -209,6 +216,23 @@ const c = copy[lang];
   }
 
   .view-all:hover { opacity: 0.6; color: var(--deep-earth); }
+
+  .view-all--btn {
+    all: unset;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--deep-earth);
+    border-bottom: 1px solid var(--deep-earth);
+    padding-bottom: 2px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+  }
+
+  .view-all--btn:hover { opacity: 0.6; }
 
   /* ── Grid ──────────────────────────────── */
   .grid-layout {
@@ -473,7 +497,7 @@ const c = copy[lang];
       '/gallery/san-rafael/sr-4.jpeg',
       '/gallery/san-rafael/sr-5.jpeg',
     ],
-    openEmotionalMoments: [
+    openSanJoaquin: [
       '/gallery/emotional-moments/principal.jpeg',
       '/gallery/emotional-moments/em-2.jpeg',
       '/gallery/emotional-moments/em-3.jpeg',
@@ -551,6 +575,16 @@ const c = copy[lang];
     lbVideo.src = '';
     document.body.style.overflow = '';
   }
+
+  const allPhotos: string[] = Object.values(galleries).flat().filter(s => !isVideoSrc(s));
+
+  document.getElementById('openAllGallery')?.addEventListener('click', () => {
+    videoOnlyMode = false;
+    items = allPhotos;
+    showItem(0);
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  });
 
   Object.keys(galleries).forEach(id => {
     document.getElementById(id)?.addEventListener('click', () => openGallery(id));
