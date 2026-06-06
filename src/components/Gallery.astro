@@ -37,11 +37,17 @@ const c = copy[lang];
     <div class="grid-layout">
 
       <div class="cell cell-a">
-        <div class="img-wrap">
-          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1400&q=85"
+        <button class="img-wrap img-wrap--gallery" id="openWestfalia" aria-label="Ver galería Westfalia, Limón">
+          <img src="/gallery/westfalia-limon/principal.jpeg"
                alt="Intimate Caribbean wedding ceremony in Westfalia, Limón, Costa Rica" style="object-position:center 40%" loading="lazy" />
-          <div class="img-overlay"><span class="img-label">Westfalia, Limón</span></div>
-        </div>
+          <div class="img-overlay">
+            <span class="img-label">Westfalia, Limón</span>
+            <span class="gallery-hint">
+              <span class="material-symbols-outlined">photo_library</span>
+              Ver galería
+            </span>
+          </div>
+        </button>
       </div>
 
       <div class="cell cell-b">
@@ -430,6 +436,13 @@ const c = copy[lang];
 
 <script>
   const galleries: Record<string, string[]> = {
+    openWestfalia: [
+      '/gallery/westfalia-limon/principal.jpeg',
+      '/gallery/westfalia-limon/wl-2.jpeg',
+      '/gallery/westfalia-limon/wl-3.jpeg',
+      '/gallery/westfalia-limon/wl-4.jpeg',
+      '/gallery/westfalia-limon/wl-5.jpeg',
+    ],
     openPuertoViejo: [
       '/gallery/puerto-viejo/principal.jpeg',
       '/gallery/puerto-viejo/pv-1.jpeg',
